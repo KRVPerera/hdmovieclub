@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 // styles
-import {Image} from './Thumb.styles';
+import {Image} from './Thumb.styles'
 
 const Thumb = ({image, alt_message, movieId, clickable }) => (
     <div>

@@ -17,7 +17,7 @@ export const useMovieFetch = movieId => {
 
                 // Get directors onlu
                 const directors = credits.crew.filter(
-                    member => member.property === 'Director'
+                    member => member.job === 'Director'
                 )
 
                 setState({
