@@ -1,5 +1,3 @@
-import Router from 'react'
-
 // Config
 import {POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL} from "../config"
 
@@ -15,7 +13,7 @@ import Button from "./Button"
 import {useHomeFetch} from '../hooks/useHomeFetch'
 
 // Image
-import NoImage from '../images/no_image.jpg'
+// import NoImage from '../images/no_image.jpg'
 
 const Home = () => {
 

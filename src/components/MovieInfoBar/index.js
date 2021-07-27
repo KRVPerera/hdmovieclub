@@ -1,4 +1,3 @@
-import Router from 'react'
 import PropTypes from 'prop-types'
 
 // Helpers
