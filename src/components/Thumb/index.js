@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom'
 // styles
 import {Image} from './Thumb.styles'
 
+// TODO: add hover items, release date like things
+
 const Thumb = ({image, alt_message, movieId, clickable}) => (
     <div>
         {clickable ? (

@@ -57,12 +57,17 @@ export const Text = styled.div`
     margin: 0;
   }
 
+  
   .director {
-    margin: 0 0 0 40px;
+    margin: 0 20px 0 40px;
 
     p {
       margin: 0;
     }
+  }
+
+  .date {
+    margin: 0 20px 0 20px;
   }
 
   h1 {

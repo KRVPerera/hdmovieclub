@@ -34,6 +34,7 @@ const MovieInfo = ({movie}) => (
                         <h3>RATING</h3>
                         <div className="score">{movie.vote_average}</div>
                     </div>
+
                     <div className="director">
                         <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
                         {movie.directors.map(
@@ -41,6 +42,16 @@ const MovieInfo = ({movie}) => (
                                 <p key={director.credit_id}>{director.name}</p>
                             ))
                         }
+                    </div>
+
+                    <div className="date">
+                        <h3>RELEASED</h3>
+                        <div >{movie.release_date}</div>
+                    </div>
+
+                    <div className="date">
+                        <h3>RUNTIME</h3>
+                        <div>{movie.runtime && movie.runtime} minutes</div>
                     </div>
                 </div>
             </Text>
