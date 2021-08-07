@@ -46,7 +46,6 @@ export const Text = styled.div`
     padding: 0.5em;
     text-align: center;
     flex-wrap: wrap;
-
   }
   
   .director {
@@ -75,8 +74,8 @@ export const Text = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
-    //height: 35px;
+    max-width: 40px;
+    width: 100%;
     background: #fff;
     color: #000;
     font-weight: 800;
