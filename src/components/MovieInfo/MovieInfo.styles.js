@@ -41,21 +41,33 @@ export const Text = styled.div`
 
   .rating-directors {
     display: flex;
-    justify-content: flex-start;
-    margin: 0 auto;
     align-items: center;
+    justify-content: space-around;
+    padding: 0.5em;
+    text-align: center;
+    flex-wrap: wrap;
 
-    .column {
-      justify-content: center;
-    }
+  }
+  
+  .director {
+    //margin: 2em;
+  }
+  
+  p {
+    margin: 0;
+  }
 
-    @media screen and (max-width: 768px){
-      display: block;
+  .date {
+    margin: 2em;
+  }
 
-      .column {
-        margin: 20px 0;
-        text-align: center;
-      }
+  .item {
+    margin: 2em;
+  }
+  
+  h1 {
+    @media screen and (max-width: 768px) {
+      font-size: var(--fontBig)
     }
   }
 
@@ -64,30 +76,12 @@ export const Text = styled.div`
     align-items: center;
     justify-content: center;
     width: 35px;
-    height: 35px;
+    //height: 35px;
     background: #fff;
     color: #000;
     font-weight: 800;
     border-radius: 50%;
     margin: 0 auto;
-  }
-
-  
-  .director {
-    margin: 0 20px 0 40px;
-
-    p {
-      margin: 0;
-    }
-  }
-
-  .date {
-    margin: 0 20px 0 20px;
-  }
-
-  h1 {
-    @media screen and (max-width: 768px) {
-      font-size: var(--fontBig)
-    }
+    padding: 0;
   }
 `
