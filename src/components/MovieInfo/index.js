@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import API from "../../API"
 import PropTypes from 'prop-types'
 
 // Components
@@ -13,51 +14,55 @@ import NoImage from '../../images/no_image.jpg'
 // Styles
 import {Wrapper, Content, Text} from './MovieInfo.styles'
 
-const MovieInfo = ({movie}) => (
-    <Wrapper backdrop={movie.backdrop_path}>
-        <Content>
-            <Thumb
-                image={
-                    movie.poster_path ?
-                        `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                        : NoImage
-                }
-                clickable={false}
-            />
-            <Text>
-                <h1>{movie.title}</h1>
-                <h3>PLOT</h3>
-                <p>{movie.overview}</p>
+const MovieInfo = ({movie}) => {
 
-                <div className="rating-directors">
-                    <div>
-                        <h3>RATING</h3>
-                        <div className="score">{movie.vote_average}</div>
-                    </div>
+    return (
+        <Wrapper backdrop={movie.backdrop_path}>
+            <Content>
+                <Thumb
+                    image={
+                        movie.poster_path ?
+                            `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                            : NoImage
+                    }
+                    clickable={false}
+                />
+                <Text>
+                    <h1>{movie.title}</h1>
+                    <h3>PLOT</h3>
+                    <p>{movie.overview}</p>
 
-                    <div className="director">
-                        <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
-                        {movie.directors.map(
-                            director => (
-                                <p key={director.credit_id}>{director.name}</p>
-                            ))
-                        }
-                    </div>
+                    <div className="rating-directors">
+                        <div className="column">
+                            <h3>RATING</h3>
+                            <div className="score">{movie.vote_average}</div>
+                        </div>
 
-                    <div className="date">
-                        <h3>RELEASED</h3>
-                        <div >{movie.release_date}</div>
-                    </div>
+                        <div className="director column">
+                            <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
+                            {movie.directors.map(
+                                director => (
+                                    <p key={director.credit_id}>{director.name}</p>
+                                ))
+                            }
+                        </div>
 
-                    <div className="date">
-                        <h3>RUNTIME</h3>
-                        <div>{movie.runtime && movie.runtime} minutes</div>
+                        <div className="date column">
+                            <h3>RELEASED</h3>
+                            <div>{movie.release_date}</div>
+                        </div>
+
+                        <div className="date column">
+                            <h3>RUNTIME</h3>
+                            <div>{movie.runtime && movie.runtime} minutes</div>
+                        </div>
                     </div>
-                </div>
-            </Text>
-        </Content>
-    </Wrapper>
-)
+                </Text>
+            </Content>
+        </Wrapper>
+    )
+}
+
 
 MovieInfo.propTypes = {
     movies: PropTypes.object

@@ -42,6 +42,21 @@ export const Text = styled.div`
   .rating-directors {
     display: flex;
     justify-content: flex-start;
+    margin: 0 auto;
+    align-items: center;
+
+    .column {
+      justify-content: center;
+    }
+
+    @media screen and (max-width: 768px){
+      display: block;
+
+      .column {
+        margin: 20px 0;
+        text-align: center;
+      }
+    }
   }
 
   .score {
@@ -54,7 +69,7 @@ export const Text = styled.div`
     color: #000;
     font-weight: 800;
     border-radius: 50%;
-    margin: 0;
+    margin: 0 auto;
   }
 
   
