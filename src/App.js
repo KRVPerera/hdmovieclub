@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Header from './components/Header'
 import Home from './components/Home'
 import Movie from "./components/Movie"
+import TV from "./components/TV"
 import NotFound from "./components/NotFound"
 
 // styles
@@ -18,6 +19,7 @@ const App = () => (
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/:movieId" element={<Movie/>}/>
+                <Route path="/tv/:tvId" element={<TV/>}/>
                 <Route path="/*" element={<NotFound/>}/>
             </Routes>
             <GlobalStyle/>

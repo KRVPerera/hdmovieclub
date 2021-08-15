@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 100px;
-  background: var(--darkGrey);
+  height: 80px;
+  background: var(--clr-900);
   padding: 0 20px;
 `;
 
@@ -12,8 +12,8 @@ export const Content = styled.div`
   position: relative;
   max-width: var(--maxWidth);
   width: 100%;
-  height: 55px;
-  background: var(--medGrey);
+  height: 50px;
+  background: var(--clr-800);
   margin: 0 auto;
   border-radius: 40px;
   color: var(--white);
@@ -35,10 +35,9 @@ export const Content = styled.div`
     width: 95%;
     background: transparent;
     height: 40px;
-    color: var(--white);
+    color: var(--clr-50);
 
     :focus {
-      //outline: none;
       position: absolute;
       width: 93%;
       border-radius: 60px;

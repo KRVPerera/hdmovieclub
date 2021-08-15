@@ -4,27 +4,29 @@ import API from "../API"
 // Helpers
 import {isPersistedState} from "../helpers";
 
-export const useMovieFetch = movieId => {
+export const useTVFetch = tvId => {
     const [state, setState] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        const fetchMovie = async () => {
+        const fetchTV = async () => {
             try {
                 setLoading(true)
                 setError(false)
 
-                const movie = await API.fetchMovie(movieId)
-                const credits = await API.fetchCredits(movieId)
+                const tv = await API.fetchTV(tvId)
+                const credits = await API.fetchTVCredits(tvId)
 
                 // Get directors only
                 const directors = credits.crew.filter(
                     member => member.job === 'Director'
                 )
 
+                console.log(tv)
+
                 setState({
-                    ...movie,
+                    ...tv,
                     actors: credits.cast,
                     directors
                 })
@@ -36,19 +38,19 @@ export const useMovieFetch = movieId => {
             }
         }
 
-        const sessionState = isPersistedState(movieId)
+        const sessionState = isPersistedState("tv" + tvId)
         if (sessionState) {
             setState(sessionState)
             setLoading(false)
             return
         }
-        fetchMovie()
-    }, [movieId])
+        fetchTV()
+    }, [tvId])
 
     // write to session storage
     useEffect(() => {
-        sessionStorage.setItem(movieId, JSON.stringify(state))
-    }, [movieId, state])
+        sessionStorage.setItem("tv" + tvId, JSON.stringify(state))
+    }, [tvId, state])
 
     return {state, loading, error}
 }

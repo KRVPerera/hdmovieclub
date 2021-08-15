@@ -11,17 +11,19 @@ import {Wrapper, Content, LogoImg, TMDBLogoImg} from "./Header.styles"
 const Header = () => {
 
     return (
-        <Wrapper>
-            <Content>
-                <Link to='/'>
-                    <LogoImg src={RMDBLogo} alt='rmdb-logo-image'/>
-                </Link>
+        <header>
+            <Wrapper>
+                <Content>
+                    <Link to='/'>
+                        <LogoImg src={RMDBLogo} alt='rmdb-logo-image'/>
+                    </Link>
 
-                <a href='https://www.themoviedb.org/'>
-                    <TMDBLogoImg src={TMDBLogo} alt='tmdb-logo-image'/>
-                </a>
-            </Content>
-        </Wrapper>
+                    <a href='https://www.themoviedb.org/'>
+                        <TMDBLogoImg src={TMDBLogo} alt='tmdb-logo-image'/>
+                    </a>
+                </Content>
+            </Wrapper>
+        </header>
     )
 }
 

@@ -1,28 +1,16 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-    display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 70px;
-  background: var(--medGrey);
-  color: var(--White);
-`
+  //height: 70px;
+  padding: 5px 0;
+  background: var(--clr-700);
+  color: var(--clr-50);
 
-export const Content = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: var(--maxWidth);
-  padding: 0 20px;
-  
-  span {
-    font-size: var(--fontMed);
-    color: var(--white);
-    padding-right: 10px;
-    
-    @media screen and (max-width: 768px) {
-      font-size: var(--fontSmall)
-    }
+  Link {
+    color: var(--clr-50);
   }
 `

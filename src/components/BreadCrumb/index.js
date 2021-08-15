@@ -1,24 +1,52 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-// Styles
-import {Wrapper, Content} from "./BreadCrumb.styles"
+import {makeStyles} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import HomeIcon from '@material-ui/icons/Home';
+import TheatersTwoToneIcon from '@material-ui/icons/TheatersTwoTone';
 
-const BreadCrumb = ({movieTitle}) => (
-    <Wrapper>
-        <Content>
-            <Link to='/'>
-                <span>Home</span>
-            </Link>
-            <span>|</span>
-            <span>{movieTitle}</span>
-        </Content>
-    </Wrapper>
-)
+// Styles
+import {Wrapper} from "./BreadCrumb.styles"
+
+
+const useStyles = makeStyles((theme) => ({
+    link: {
+        display: 'flex',
+    },
+    icon: {
+        marginRight: theme.spacing(1),
+    },
+}));
+
+function handleClick(event) {
+    // event.preventDefault();
+}
+
+const BreadCrumb = ({movieTitle}) => {
+    const classes = useStyles();
+
+    return (
+        <Wrapper>
+            <Breadcrumbs aria-label="breadcrumb">
+                <Link color="inherit" href="/" onClick={handleClick} className={classes.link}>
+                    <HomeIcon className={classes.icon}/>
+                    Home
+                </Link>
+                <Typography color="textPrimary" className={classes.link}>
+                    <TheatersTwoToneIcon className={classes.icon}/>
+                    {movieTitle}
+                </Typography>
+            </Breadcrumbs>
+        </Wrapper>
+    );
+}
+
 
 BreadCrumb.propTypes = {
-    movieTitle : PropTypes.string
+    movieTitle: PropTypes.string
 }
 
 export default BreadCrumb

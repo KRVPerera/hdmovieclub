@@ -1,5 +1,4 @@
 import React, {useContext} from 'react'
-import API from "../../API"
 import PropTypes from 'prop-types'
 
 // Components
@@ -12,49 +11,51 @@ import {IMAGE_BASE_URL, POSTER_SIZE} from "../../config"
 import NoImage from '../../images/no_image.jpg'
 
 // Styles
-import {Wrapper, Content, Text} from './MovieInfo.styles'
+import {Wrapper, Content, Text} from './TVInfo.styles'
 
-const MovieInfo = ({movie}) => {
+const TVInfo = ({tv}) => {
 
     return (
-        <Wrapper backdrop={movie.backdrop_path}>
+        <Wrapper backdrop={tv.backdrop_path}>
             <Content>
                 <Thumb
                     image={
-                        movie.poster_path ?
-                            `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                        tv.poster_path ?
+                            `${IMAGE_BASE_URL}${POSTER_SIZE}${tv.poster_path}`
                             : NoImage
                     }
                     clickable={false}
                 />
                 <Text>
-                    <h1>{movie.title}</h1>
+                    <h1>{tv.title}</h1>
                     <h3>PLOT</h3>
-                    <p>{movie.overview}</p>
+                    <p>{tv.overview}</p>
 
                     <div className="rating-directors">
                         <div className="item">
                             <h3>RATING</h3>
-                            <div className="score">{movie.vote_average}</div>
+                            <div className="score">{tv.vote_average}</div>
                         </div>
 
-                        <div className="director item">
-                            <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
-                            {movie.directors.map(
+                        {tv.created_by && <div className="director item">
+                            <h3>DIRECTOR{tv.created_by.length > 1 ? 'S' : ''}</h3>
+                            {tv.created_by.map(
                                 director => (
                                     <p key={director.credit_id}>{director.name}</p>
                                 ))
                             }
+                            <p>{tv.created_by.name}</p>
                         </div>
+                        }
 
                         <div className="item">
-                            <h3>RELEASED</h3>
-                            <div>{movie.release_date}</div>
+                            <h3>STATUS</h3>
+                            <div>{tv.status}</div>
                         </div>
 
                         <div className="item">
                             <h3>RUNTIME</h3>
-                            <div>{movie.runtime && movie.runtime} minutes</div>
+                            <div>{tv.number_of_seasons} seasons / {tv.number_of_episodes} episodes</div>
                         </div>
                     </div>
                 </Text>
@@ -63,10 +64,10 @@ const MovieInfo = ({movie}) => {
     )
 }
 
-
-MovieInfo.propTypes = {
-    movie: PropTypes.object
+//
+TVInfo.propTypes = {
+    tv: PropTypes.object
 }
 
-export default MovieInfo
+export default TVInfo
 

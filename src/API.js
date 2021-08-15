@@ -5,7 +5,9 @@ import {
     API_KEY,
     REQUEST_TOKEN_URL,
     LOGIN_URL,
-    SESSION_ID_URL
+    SESSION_ID_URL,
+    GET_TRENDING_MOVIE_URL,
+    GET_TRENDING_TV_URL
 } from './config';
 
 const defaultConfig = {
@@ -23,12 +25,34 @@ const apiSettings = {
         console.log(endpoint)
         return await (await fetch(endpoint)).json();
     },
+    fetchTrendingMovies: async (page) => {
+        const endpoint = `${GET_TRENDING_MOVIE_URL}&page=${page}`;
+
+        return await (await fetch(endpoint)).json();
+    },
+    fetchTrendingTVs: async (page) => {
+        const endpoint = `${GET_TRENDING_TV_URL}&page=${page}`;
+        return await (await fetch(endpoint)).json();
+    },
     fetchMovie: async movieId => {
         const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
         return await (await fetch(endpoint)).json();
     },
+    fetchMovieGenres: async () => {
+        const endpoint = `${API_URL}/genre/movie/list?api_key=${API_KEY}`;
+        return await (await fetch(endpoint)).json();
+    },
     fetchCredits: async movieId => {
         const creditsEndpoint = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
+        return await (await fetch(creditsEndpoint)).json();
+    },
+    fetchTV: async tvId => {
+        const endpoint = `${API_URL}tv/${tvId}?api_key=${API_KEY}`;
+        // console.log(endpoint)
+        return await (await fetch(endpoint)).json();
+    },
+    fetchTVCredits: async tvId => {
+        const creditsEndpoint = `${API_URL}tv/${tvId}/credits?api_key=${API_KEY}`;
         return await (await fetch(creditsEndpoint)).json();
     },
     // Bonus material below for login
