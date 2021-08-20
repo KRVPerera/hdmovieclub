@@ -3,6 +3,8 @@ import API from "../API";
 
 // helpers
 import {isPersistedState} from "../helpers"
+// import useWindowDimensions from "../components/utils";
+// import {number} from "prop-types";
 
 const initialState = {
     page: 0,
@@ -19,16 +21,17 @@ export const useTrendFetch = () => {
     const [error, setError] = useState(false)
     const [isLoadingMore, setIsLoadingMore] = useState(false)
 
-    const fetchTrendingMovies = async (page) => {
+    const fetchTrendingTvs = async (page) => {
         try {
             setError(false)
             setLoading(true)
 
-            const movies = await API.fetchTrendingTVs(page)
+            const tvs = await API.fetchTrendingTVs(page)
+
             setState(prevState => ({
-                ...movies,
+                ...tvs,
                 results:
-                    page > 1 ? [...prevState.results, ...movies.results] : [...movies.results]
+                    page > 1 ? [...prevState.results, ...tvs.results] : [...tvs.results]
             }))
         } catch (error) {
             setError(true)
@@ -45,14 +48,14 @@ export const useTrendFetch = () => {
         }
 
         setState(initialState)
-        fetchTrendingMovies(1)
+        fetchTrendingTvs(1)
     }, [])
 
     // load more
     useEffect(() => {
         if (!isLoadingMore) return;
 
-        fetchTrendingMovies(state.page + 1);
+        fetchTrendingTvs(state.page + 1);
         setIsLoadingMore(false);
 
     }, [isLoadingMore, state.page])

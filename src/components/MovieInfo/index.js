@@ -1,5 +1,3 @@
-import React, {useContext} from 'react'
-import API from "../../API"
 import PropTypes from 'prop-types'
 
 // Components

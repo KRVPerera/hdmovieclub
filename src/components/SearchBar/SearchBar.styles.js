@@ -3,9 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 80px;
   background: var(--clr-900);
-  padding: 0 20px;
+  padding: 10px 20px;
 `;
 
 export const Content = styled.div`

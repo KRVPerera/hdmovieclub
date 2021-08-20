@@ -1,9 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
 // styles
-import {Wrapper, Image} from './Slide.styles'
+import {Image} from './Slide.styles'
 
 // TODO: add hover items, release date like things
 
