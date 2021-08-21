@@ -20,7 +20,7 @@ const Home = () => {
     const {state: genres, error2} = useMovieGenreFetch()
     const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore} = useHomeFetch();
 
-    const newMyObj = genres.genres.reduce(function(result, currentObject) {
+    const genreMap = genres.genres.reduce(function(result, currentObject) {
         result[currentObject.id] = currentObject.name;
         return result;
     }, {});
@@ -51,11 +51,10 @@ const Home = () => {
                             alt_message={movie.title}
                             movieId={movie.id}
                         >
-                            {
-                                !error2 && movie.genre_ids && movie.genre_ids.sort().map(genre => (
+                            {!error2 && movie.genre_ids && movie.genre_ids.sort().map(genre => (
                                 <Chip
                                     key={genre.id}
-                                    label={newMyObj[genre]}
+                                    label={genreMap[genre]}
                                     className="chip"
                                     size="small"
                                     variant="outlined"

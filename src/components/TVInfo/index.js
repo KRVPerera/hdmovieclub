@@ -12,6 +12,7 @@ import NoImage from '../../images/no_image.jpg'
 
 // Styles
 import {Wrapper, Content, Text} from './TVInfo.styles'
+import Chip from "@material-ui/core/Chip";
 
 const TVInfo = ({tv}) => {
 
@@ -56,6 +57,26 @@ const TVInfo = ({tv}) => {
                         <div className="item">
                             <h3>RUNTIME</h3>
                             <div>{tv.number_of_seasons} seasons / {tv.number_of_episodes} episodes</div>
+                        </div>
+
+                        <div className="item">
+                            <h3>GENRES</h3>
+                            <div>
+                                {tv.genres && tv.genres.sort().map(genre => (
+                                    <Chip
+                                        key={genre.id}
+                                        label={genre.name}
+                                        className="chip"
+                                        size="small"
+                                        variant="outlined"
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="item">
+                            <h3>FIRST AIR DATE</h3>
+                            <div>{tv.first_air_date}</div>
                         </div>
                     </div>
                 </Text>

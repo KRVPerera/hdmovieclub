@@ -1,20 +1,13 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
 
-// Config
-// import {IMAGE_BASE_URL, TV_POSTER_SIZE, POSTER_SIZE} from "../config"
-
 // Components
 import BreadCrumb from "./BreadCrumb";
 import TVInfo from "./TVInfo";
 import Spinner from "./Spinner"
-// import Thumb from "./Thumb";
 
 // Hook
 import {useTVFetch} from "../hooks/useTVFetch";
-
-// Image
-// import NoImage from '../images/no_image.jpg'
 
 const TV = () => {
     const {tvId} = useParams()
@@ -27,6 +20,10 @@ const TV = () => {
         <>
             <BreadCrumb movieTitle={tv.name}/>
             <TVInfo tv={tv}/>
+
+            {/*{tv.seasons.map(season => (*/}
+            {/*    <p>{season.overview}</p>*/}
+            {/*))}*/}
             {/*<MovieInfoBar*/}
             {/*    time={movie.runtime}*/}
             {/*    budget={movie.budget}*/}
