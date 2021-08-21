@@ -2,25 +2,29 @@
 import {POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL} from "../config"
 
 // Components
+import Spinner from "./Spinner"
+import Chip from "@material-ui/core/Chip";
+import React from "react";
 import HeroImage from "./HeroImage"
 import Grid from "./Grid"
 import Thumb from "./Thumb"
-import Spinner from "./Spinner"
 import SearchBar from "./SearchBar"
 import Button from "./Button"
+import TrendingBar from "./TrendingBar";
 
 // Hook
 import {useHomeFetch} from '../hooks/useHomeFetch'
-import TrendingBar from "./TrendingBar";
-
-// Image
-// import NoImage from '../images/no_image.jpg'
+import {useMovieGenreFetch} from "../hooks/useMovieGenreFetch";
 
 const Home = () => {
-
+    const {state: genres, error2} = useMovieGenreFetch()
     const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore} = useHomeFetch();
 
-    // console.log(state)
+    const newMyObj = genres.genres.reduce(function(result, currentObject) {
+        result[currentObject.id] = currentObject.name;
+        return result;
+    }, {});
+
     if (error) {
         return <div>Something went wrong...</div>
     }
@@ -34,7 +38,6 @@ const Home = () => {
             />}
             {!searchTerm && <TrendingBar/>}
             <SearchBar setSearchTerm={setSearchTerm}/>
-            {/*{state.results[0] ? <HeroImage/> : null}*/}
             <Grid header={searchTerm ? 'Search Result' : 'Popular movies'}>
                 {state.results.map(movie => (
                     <>
@@ -47,8 +50,19 @@ const Home = () => {
                             }
                             alt_message={movie.title}
                             movieId={movie.id}
-                            genre_ids={movie.genre_ids}
-                        />
+                        >
+                            {
+                                !error2 && movie.genre_ids && movie.genre_ids.sort().map(genre => (
+                                <Chip
+                                    key={genre.id}
+                                    label={newMyObj[genre]}
+                                    className="chip"
+                                    size="small"
+                                    variant="outlined"
+                                />
+                            ))}
+
+                        </Thumb>
                     </>
                 ))}
             </Grid>

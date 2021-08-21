@@ -53,5 +53,14 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 1rem;
       color: var(--white);
     }
+    
+    .chip {
+      font-size: 1rem;
+      margin: 0.5px;
+      background-color: var(--clr-700);
+      font-weight: 400;
+      color: var(--clr-50);
+    }
+
   }
 `;

@@ -6,8 +6,12 @@ import {isPersistedStateInLocal} from "../helpers";
 
 const storageKey = "movieGenres"
 
+const initialState = {
+    genres : []
+}
+
 export const useMovieGenreFetch = () => {
-    const [state, setState] = useState({})
+    const [state, setState] = useState(initialState)
     const [error, setError] = useState(false)
 
     const fetchMovieGenres = async () => {
@@ -19,7 +23,7 @@ export const useMovieGenreFetch = () => {
             console.log(movieGenres)
 
             setState({
-                ...movieGenres,
+                genres : movieGenres.genres
             })
 
         } catch (error) {

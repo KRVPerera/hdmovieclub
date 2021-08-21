@@ -11,6 +11,8 @@ const initialState = {
     total_results: 0
 }
 
+const storageKey = "homeState"
+
 export const useHomeFetch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [state, setState] = useState(initialState)
@@ -39,7 +41,7 @@ export const useHomeFetch = () => {
     // initial render and search
     useEffect(() => {
         if (!searchTerm) {
-            const sessionState = isPersistedState('homeState')
+            const sessionState = isPersistedState(storageKey)
             if (sessionState) {
                 setState(sessionState)
                 return
@@ -61,7 +63,7 @@ export const useHomeFetch = () => {
 
     // write to sessionStorage
     useEffect(() => {
-        if (!searchTerm) sessionStorage.setItem('homeState', JSON.stringify(state))
+        if (!searchTerm) sessionStorage.setItem(storageKey, JSON.stringify(state))
     }, [searchTerm, state])
 
     return {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore}
