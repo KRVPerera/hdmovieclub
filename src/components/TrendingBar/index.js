@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react'
+import {Link} from 'react-router-dom'
 
 // import PropTypes from 'prop-types'
 
 // styles
-import {Wrapper, Content, Title, SlideBar} from "./TrendingBar.styles"
+import {Wrapper, Content, Title, SlideBar, TwoButtons} from "./TrendingBar.styles"
 
 // hooks
 import {useTrendFetch} from "../../hooks/useTrendFetch";
@@ -16,7 +17,7 @@ import Slide from "../Slide";
 import Spinner from "../Spinner";
 import Fab from '@material-ui/core/Fab';
 import DoubleArrowSharpIcon from '@material-ui/icons/DoubleArrowSharp';
-// import useWindowDimensions from "../utils";
+import TvIcon from '@material-ui/icons/Tv';
 
 const TrendingBar = () => {
     const prevScrollLeft = useRef(0);
@@ -82,10 +83,18 @@ const TrendingBar = () => {
                                     tvId={tv.id}/>
                             ))}
                         {state.page < state.total_pages && !loading && (
-                            <Fab variant="circular" color='inherit' aria-label="more"
-                                 onClick={() => setIsLoadingMore(true)} className="TrendBarFab TrendBarFabRight">
-                                <DoubleArrowSharpIcon/>
-                            </Fab>
+                            <TwoButtons>
+                                <Fab variant="circular" color='inherit' aria-label="more"
+                                     onClick={() => setIsLoadingMore(true)} className="TrendBarFab TrendBarFabRight">
+                                    <DoubleArrowSharpIcon/>
+                                </Fab>
+                                <Link to={`/`}>
+                                    <Fab variant="circular" color='inherit' aria-label="tvs"
+                                         className="TrendBarFab TrendBarFabRight TrendBarFabRightTVS">
+                                        <TvIcon/>
+                                    </Fab>
+                                </Link>
+                            </TwoButtons>
                         )}
                     </SlideBar>
 

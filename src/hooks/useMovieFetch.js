@@ -17,7 +17,6 @@ export const useMovieFetch = movieId => {
 
                 const movie = await API.fetchMovie(movieId)
                 const credits = await API.fetchCredits(movieId)
-                console.log(credits, movie)
 
                 // Get directors only
                 const directors = credits.crew.filter(
@@ -37,7 +36,7 @@ export const useMovieFetch = movieId => {
             }
         }
 
-        const sessionState = isPersistedState(movieId)
+        const sessionState = isPersistedState("movie-" + movieId)
         if (sessionState) {
             setState(sessionState)
             setLoading(false)
@@ -48,7 +47,7 @@ export const useMovieFetch = movieId => {
 
     // write to session storage
     useEffect(() => {
-        sessionStorage.setItem(movieId, JSON.stringify(state))
+        sessionStorage.setItem("movie-" +movieId, JSON.stringify(state))
     }, [movieId, state])
 
     return {state, loading, error}

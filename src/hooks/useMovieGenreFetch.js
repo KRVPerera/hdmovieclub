@@ -38,7 +38,7 @@ export const useMovieGenreFetch = () => {
 
     // write to session storage
     useEffect(() => {
-        localStorage.setItem(storageKey, JSON.stringify(state))
+        sessionStorage.setItem(storageKey, JSON.stringify(state))
     }, [state])
 
     return {state, error}

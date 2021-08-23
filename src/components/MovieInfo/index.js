@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 // Components
 import Thumb from '../Thumb'
 import IMDBMovie from '../IMDBMovie'
+import Chip from '@material-ui/core/Chip';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
 // Config
 import {IMAGE_BASE_URL, POSTER_SIZE} from "../../config"
@@ -12,8 +14,21 @@ import NoImage from '../../images/no_image.jpg'
 
 // Styles
 import {Wrapper, Content, Text} from './MovieInfo.styles'
+import React from "react";
+import API from "../../API";
 
 const MovieInfo = ({movie}) => {
+
+    let date = new Date(movie.release_date);
+    let longMonth = date.toLocaleString('en-us', {day: 'numeric', year: 'numeric', month: 'short'});
+    let movieYear = date.toLocaleString('en-us', {year: 'numeric'});
+
+    let runtime = new Date(movie.runtime);
+    let hours = Math.floor(runtime / 60);
+    let minutes = runtime % 60;
+
+    const movieVideos = API.fetchMovieVideos(movie.id);
+    console.log(movieVideos)
 
     return (
         <Wrapper backdrop={movie.backdrop_path}>
@@ -27,9 +42,10 @@ const MovieInfo = ({movie}) => {
                     clickable={false}
                 />
                 <Text>
-                    <h1>{movie.title}</h1>
+                    <h1>{movie.title} ({movieYear})</h1>
                     <h3>PLOT</h3>
-                    <p>{movie.overview}</p>
+                    <h4>{movie.tagline}</h4>
+                    <h4>{movie.overview}</h4>
 
                     <div className="rating-directors">
                         <div className="item">
@@ -48,13 +64,15 @@ const MovieInfo = ({movie}) => {
 
                         <div className="item">
                             <h3>RELEASED</h3>
-                            <div>{movie.release_date}</div>
+                            <div>{longMonth}</div>
                         </div>
 
-                        <div className="item">
-                            <h3>RUNTIME</h3>
-                            <div>{movie.runtime && movie.runtime} minutes</div>
-                        </div>
+                        {movie.runtime > 0 &&
+                            <div className="item">
+                                <h3>RUNTIME</h3>
+                                <div>{hours}h {minutes}m</div>
+                            </div>
+                        }
                     </div>
                     {movie.imdb_id && <IMDBMovie movie={movie}/>}
                 </Text>

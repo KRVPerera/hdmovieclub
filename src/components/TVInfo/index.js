@@ -16,6 +16,10 @@ import Chip from "@material-ui/core/Chip";
 
 const TVInfo = ({tv}) => {
 
+    let date = new Date(tv.first_air_date);
+    let longDate = date.toLocaleString('en-us', {day: 'numeric', year: 'numeric', month: 'short'});
+    let tvYear = date.toLocaleString('en-us', {year: 'numeric'});
+
     return (
         <Wrapper backdrop={tv.backdrop_path}>
             <Content>
@@ -28,8 +32,9 @@ const TVInfo = ({tv}) => {
                     clickable={false}
                 />
                 <Text>
-                    <h1>{tv.title}</h1>
+                    <h1>{tv.name} ({tvYear})</h1>
                     <h3>PLOT</h3>
+                    <h4>{tv.tagline}</h4>
                     <p>{tv.overview}</p>
 
                     <div className="rating-directors">
@@ -74,10 +79,12 @@ const TVInfo = ({tv}) => {
                             </div>
                         </div>
 
-                        <div className="item">
-                            <h3>FIRST AIR DATE</h3>
-                            <div>{tv.first_air_date}</div>
-                        </div>
+                        {longDate > 0 &&
+                            <div className="item">
+                                <h3>FIRST AIR DATE</h3>
+                                <div>{longDate}</div>
+                            </div>
+                        }
                     </div>
                 </Text>
             </Content>

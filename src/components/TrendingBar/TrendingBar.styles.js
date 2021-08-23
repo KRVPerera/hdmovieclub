@@ -20,15 +20,10 @@ export const Content = styled.div`
 
   .TrendBarFabLeft {
     top: 30px;
+    left: 20px;
     margin-right: 20px;
     position: absolute;
     z-index: 99999;
-  }
-
-  .TrendBarFabRight {
-    margin: 80px 10px 0 10px;
-    padding: 30px;
-    position: center;
   }
 `;
 
@@ -36,6 +31,18 @@ export const SlideBar = styled.div`
   overflow: scroll;
   scroll-behavior: smooth;
   display: flex;
+`;
+
+export const TwoButtons = styled.div`
+  .TrendBarFabRight {
+    display: flex;
+    margin: 35px 10px 0 10px;
+    padding: 30px;
+  }
+  
+  .TrendBarFabRightTVS {
+    
+  }
 `;
 
 export const Title = styled.h3`

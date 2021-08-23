@@ -21,7 +21,7 @@ export const usePeopleFetch = person_id => {
             }
         }
 
-        const sessionState = isPersistedState(person_id)
+        const sessionState = isPersistedState("person-" + person_id)
         if (sessionState) {
             setState(sessionState)
             return
@@ -31,7 +31,7 @@ export const usePeopleFetch = person_id => {
 
     // write to session storage
     useEffect(() => {
-        sessionStorage.setItem(person_id, JSON.stringify(state))
+        sessionStorage.setItem("person-" + person_id, JSON.stringify(state))
     }, [person_id, state])
 
     return {state, error}

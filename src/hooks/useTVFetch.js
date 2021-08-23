@@ -36,7 +36,7 @@ export const useTVFetch = tvId => {
             }
         }
 
-        const sessionState = isPersistedState("tv" + tvId)
+        const sessionState = isPersistedState("tv-" + tvId)
         if (sessionState) {
             setState(sessionState)
             setLoading(false)
@@ -47,7 +47,7 @@ export const useTVFetch = tvId => {
 
     // write to session storage
     useEffect(() => {
-        sessionStorage.setItem("tv" + tvId, JSON.stringify(state))
+        sessionStorage.setItem("tv-" + tvId, JSON.stringify(state))
     }, [tvId, state])
 
     return {state, loading, error}

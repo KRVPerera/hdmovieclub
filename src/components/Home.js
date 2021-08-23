@@ -59,7 +59,13 @@ const Home = () => {
                                 variant="outlined"
                             />
                         ))}
-
+                        <Chip
+                            key={movie.id}
+                            label={new Date(movie.release_date).toLocaleString('en-us', { year : 'numeric'})}
+                            className="chip"
+                            size="small"
+                            variant="outlined"
+                        />
                     </Thumb>
                 ))}
             </Grid>

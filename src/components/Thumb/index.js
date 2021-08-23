@@ -9,7 +9,7 @@ const Thumb = ({image, alt_message, movieId, clickable, children}) => {
     return (
         <Wrapper>
             {clickable ? (
-                <Link to={`/${movieId}`}>
+                <Link to={`/movie/${movieId}`}>
                     <Image loading="lazy" src={image} alt={"Movie poster missing : '" + alt_message + "'"}/>
                 </Link>
             ) : (
