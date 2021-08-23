@@ -38,6 +38,10 @@ const apiSettings = {
         const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
         return await (await fetch(endpoint)).json();
     },
+    fetchPerson: async person_id => {
+        const endpoint = `${API_URL}person/${person_id}?api_key=${API_KEY}`;
+        return await (await fetch(endpoint)).json();
+    },
     fetchMovieGenres: async () => {
         const endpoint = `${API_URL}/genre/movie/list?api_key=${API_KEY}`;
         return await (await fetch(endpoint)).json();
@@ -49,6 +53,10 @@ const apiSettings = {
     fetchTV: async tvId => {
         const endpoint = `${API_URL}tv/${tvId}?api_key=${API_KEY}`;
         // console.log(endpoint)
+        return await (await fetch(endpoint)).json();
+    },
+    fetchTVGenres: async () => {
+        const endpoint = `${API_URL}/genre/tv/list?api_key=${API_KEY}`;
         return await (await fetch(endpoint)).json();
     },
     fetchTVCredits: async tvId => {

@@ -14,6 +14,10 @@ export const Wrapper = styled.div`
   p {
     margin: 5px 0;
   }
+  
+  a {
+    color: var(--clr-50)
+  }
 `
 
 export const Image = styled.img`

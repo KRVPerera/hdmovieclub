@@ -4,22 +4,24 @@ import API from "../API"
 // Helpers
 import {isPersistedState} from "../helpers";
 
-const storageKey = "movieGenres"
+const storageKey = "tvGenres"
 
 const initialState = {
     genres : []
 }
 
-export const useMovieGenreFetch = () => {
+export const useTVGenreFetch = () => {
     const [state, setState] = useState(initialState)
     const [error, setError] = useState(false)
 
-    const fetchMovieGenres = async () => {
+    const fetchTVGenres = async () => {
         try {
             setError(false)
-            const movieGenres = await API.fetchMovieGenres()
+
+            const tvGenres = await API.fetchTVGenres()
+
             setState({
-                genres : movieGenres.genres
+                genres : tvGenres.genres
             })
 
         } catch (error) {
@@ -33,12 +35,12 @@ export const useMovieGenreFetch = () => {
             setState(sessionState)
             return
         }
-        fetchMovieGenres()
+        fetchTVGenres()
     }, [])
 
     // write to session storage
     useEffect(() => {
-        localStorage.setItem(storageKey, JSON.stringify(state))
+        sessionStorage.setItem(storageKey, JSON.stringify(state))
     }, [state])
 
     return {state, error}

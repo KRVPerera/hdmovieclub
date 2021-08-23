@@ -23,8 +23,6 @@ export const useTVFetch = tvId => {
                     member => member.job === 'Director'
                 )
 
-                console.log(tv)
-
                 setState({
                     ...tv,
                     actors: credits.cast,

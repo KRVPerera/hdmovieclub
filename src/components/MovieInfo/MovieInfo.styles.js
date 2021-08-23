@@ -83,4 +83,8 @@ export const Text = styled.div`
     margin: 0 auto;
     padding: 0;
   }
+  
+  a {
+    color: var(--clr-100);
+  }
 `

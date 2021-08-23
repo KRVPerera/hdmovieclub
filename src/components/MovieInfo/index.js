@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 
 // Components
 import Thumb from '../Thumb'
+import IMDBMovie from '../IMDBMovie'
 
 // Config
 import {IMAGE_BASE_URL, POSTER_SIZE} from "../../config"
@@ -55,6 +56,7 @@ const MovieInfo = ({movie}) => {
                             <div>{movie.runtime && movie.runtime} minutes</div>
                         </div>
                     </div>
+                    {movie.imdb_id && <IMDBMovie movie={movie}/>}
                 </Text>
             </Content>
         </Wrapper>

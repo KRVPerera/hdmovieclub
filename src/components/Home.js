@@ -20,7 +20,7 @@ const Home = () => {
     const {state: genres, error2} = useMovieGenreFetch()
     const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore} = useHomeFetch();
 
-    const genreMap = genres.genres.reduce(function(result, currentObject) {
+    const genreMap = genres.genres.reduce(function (result, currentObject) {
         result[currentObject.id] = currentObject.name;
         return result;
     }, {});
@@ -39,30 +39,28 @@ const Home = () => {
             {!searchTerm && <TrendingBar/>}
             <SearchBar setSearchTerm={setSearchTerm}/>
             <Grid header={searchTerm ? 'Search Result' : 'Popular movies'}>
-                {state.results.map(movie => (
-                    <>
-                        <Thumb
-                            key={movie.id}
-                            clickable
-                            image={
-                                movie.poster_path ?
-                                    IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path : null
-                            }
-                            alt_message={movie.title}
-                            movieId={movie.id}
-                        >
-                            {!error2 && movie.genre_ids && movie.genre_ids.sort().map(genre => (
-                                <Chip
-                                    key={genre.id}
-                                    label={genreMap[genre]}
-                                    className="chip"
-                                    size="small"
-                                    variant="outlined"
-                                />
-                            ))}
+                {state.results.map((movie, idx) => (
+                    <Thumb
+                        key={movie.id}
+                        clickable
+                        image={
+                            movie.poster_path ?
+                                IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path : null
+                        }
+                        alt_message={movie.title}
+                        movieId={movie.id}
+                    >
+                        {!error2 && movie.genre_ids && movie.genre_ids.sort().map((genre, idj) => (
+                            <Chip
+                                key={idj}
+                                label={genreMap[genre]}
+                                className="chip"
+                                size="small"
+                                variant="outlined"
+                            />
+                        ))}
 
-                        </Thumb>
-                    </>
+                    </Thumb>
                 ))}
             </Grid>
             {loading && <Spinner/>}

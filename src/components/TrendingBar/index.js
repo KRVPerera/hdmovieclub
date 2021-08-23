@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useState, useEffect, useRef} from 'react'
+
 // import PropTypes from 'prop-types'
 
 // styles
-import {Wrapper, Content, Title} from "./TrendingBar.styles"
+import {Wrapper, Content, Title, SlideBar} from "./TrendingBar.styles"
+
+// hooks
 import {useTrendFetch} from "../../hooks/useTrendFetch";
+
+// config
 import {IMAGE_BASE_URL, TV_POSTER_SIZE} from "../../config";
+
+// components
 import Slide from "../Slide";
 import Spinner from "../Spinner";
 import Fab from '@material-ui/core/Fab';
@@ -12,8 +19,37 @@ import DoubleArrowSharpIcon from '@material-ui/icons/DoubleArrowSharp';
 // import useWindowDimensions from "../utils";
 
 const TrendingBar = () => {
+    const prevScrollLeft = useRef(0);
     const {state, loading, error, setIsLoadingMore} = useTrendFetch();
-    // const { _ , width } = useWindowDimensions();
+    const [scroll, setScroll] = useState(0);
+    // const [goingLeft, setGoingLeft] = useState(false);
+
+    const navRef = useRef(null);
+
+    useEffect(() => {
+        // var maxScrollLeft = element.scrollWidth - element.clientWidth;
+        prevScrollLeft.current = navRef.current.scrollLeft;
+        navRef.current.scrollLeft += scroll;
+    }, [scroll]);
+
+    //
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         const currentScrollLeft = navRef.current.scrollLeft;
+    //         if (prevScrollLeft.current < currentScrollLeft && goingLeft) {
+    //             setGoingLeft(false);
+    //         }
+    //         if (prevScrollLeft.current > currentScrollLeft && !goingLeft) {
+    //             setGoingLeft(true);
+    //         }
+    //
+    //         prevScrollLeft.current = currentScrollLeft;
+    //     };
+    //
+    //     window.addEventListener("scroll", handleScroll, { passive: true });
+    //
+    //     return () => window.removeEventListener("scroll", handleScroll);
+    // }, [goingLeft]);
 
     if (error) {
         return <div>Something went wrong...</div>
@@ -24,33 +60,35 @@ const TrendingBar = () => {
             {loading && <Spinner/>}
             {!loading &&
             <Wrapper>
-                {/*<Title>Trending Shows</Title>*/}
                 <Content>
                     <Title>Trending Shows</Title>
-                    {state.page < state.total_pages && !loading && (
-                        <Fab color="primary" aria-label="add" position="left-center">
-                            <DoubleArrowSharpIcon/>
-                        </Fab>
-                    )}
-                    {
-                        state.results.map(tv => (
-                        <Slide
-                            key={tv.id}
-                            clickable
-                            image={
-                                tv.poster_path ?
-                                    IMAGE_BASE_URL + TV_POSTER_SIZE + tv.poster_path : null
-                            }
-                            alt_message={tv.name}
-                            tvId={tv.id}/>
-                    ))}
-                    {state.page < state.total_pages && !loading && (
-                        // <Button text="Load More" callback={() => setIsLoadingMore(true)}/>
+                    <SlideBar ref={navRef}>
+                        {!loading && (
+                            <Fab size="small" variant="circular" color='inherit' aria-label="end"
+                                 className="TrendBarFab TrendBarFabLeft" onClick={() => setScroll(scroll + 200)}>
+                                <DoubleArrowSharpIcon/>
+                            </Fab>
+                        )}
+                        {
+                            state.results.map(tv => (
+                                <Slide
+                                    key={tv.id}
+                                    clickable
+                                    image={
+                                        tv.poster_path ?
+                                            IMAGE_BASE_URL + TV_POSTER_SIZE + tv.poster_path : null
+                                    }
+                                    alt_message={tv.name}
+                                    tvId={tv.id}/>
+                            ))}
+                        {state.page < state.total_pages && !loading && (
+                            <Fab variant="circular" color='inherit' aria-label="more"
+                                 onClick={() => setIsLoadingMore(true)} className="TrendBarFab TrendBarFabRight">
+                                <DoubleArrowSharpIcon/>
+                            </Fab>
+                        )}
+                    </SlideBar>
 
-                        <Fab color="primary" aria-label="add" onClick={() => setIsLoadingMore(true)}>
-                            <DoubleArrowSharpIcon/>
-                        </Fab>
-                    )}
                 </Content>
             </Wrapper>
             }

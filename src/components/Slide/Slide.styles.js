@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 
 export const Image = styled.img`
-  //width: 100%;
-  //margin: 0 auto;
-  max-width: 150px;
+  width: 100%;
+  height: auto;
+  //max-width: 150px;
+  min-width: 150px;
+  border: 1px solid var(--clr-900);
   transition: all 0.3s;
-  //object-fit: contain;
-  float: left;
   border-radius: 5px;
   animation: animateThumb 0.5s;
+  display: block;
+
+  //@media screen and (max-width: 768px) {
+  //  max-width: 100px;
+  //}
 
   :hover {
     opacity: 0.8;

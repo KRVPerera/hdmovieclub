@@ -17,6 +17,7 @@ export const useMovieFetch = movieId => {
 
                 const movie = await API.fetchMovie(movieId)
                 const credits = await API.fetchCredits(movieId)
+                console.log(credits, movie)
 
                 // Get directors only
                 const directors = credits.crew.filter(

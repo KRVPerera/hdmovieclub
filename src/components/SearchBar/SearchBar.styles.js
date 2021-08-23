@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   background: var(--clr-900);
   padding: 5px 50px 5px 10px;
-  margin: 0 auto;
+  margin: 0;
 `;
 
 export const Content = styled.div`
@@ -15,6 +15,7 @@ export const Content = styled.div`
   background: var(--clr-800);
   align-content: center;
   margin: 0 auto;
+  padding: 0;
   border-radius: 40px;
   color: var(--white);
 

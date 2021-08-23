@@ -37,7 +37,8 @@ const Movie = () => {
             <Grid header='Actors'>
                 {movie.actors.map(actor => (
                     <Actor
-                        key={actor.credit_id}
+                        key={actor.id}
+                        person_id={actor.id}
                         name={actor.name}
                         character={actor.character}
                         imageURL={
