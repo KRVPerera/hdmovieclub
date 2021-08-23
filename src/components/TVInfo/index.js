@@ -43,7 +43,7 @@ const TVInfo = ({tv}) => {
                             <div className="score">{tv.vote_average}</div>
                         </div>
 
-                        {tv.created_by && <div className="director item">
+                        {tv.created_by.length > 0 && <div className="director item">
                             <h3>DIRECTOR{tv.created_by.length > 1 ? 'S' : ''}</h3>
                             {tv.created_by.map(
                                 director => (
