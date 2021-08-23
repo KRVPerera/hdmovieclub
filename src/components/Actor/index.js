@@ -11,7 +11,8 @@ const Actor = ({actor, person_id, name, imageURL}) => {
 
     let actorName;
     if (person.person && person.person.imdb_id) {
-        actorName = <a rel="noreferrer" href={"https://www.imdb.com/name/" + person.person.imdb_id} target="_blank"><h3>{name}</h3></a>;
+        actorName = <a rel="noreferrer" href={"https://www.imdb.com/name/" + person.person.imdb_id} target="_blank">
+            <h3>{name}</h3></a>;
     } else {
         actorName = <h3>{name}</h3>;
     }
@@ -21,10 +22,9 @@ const Actor = ({actor, person_id, name, imageURL}) => {
         character = <p>{actor.character}</p>
     } else {
         let characters = "";
-        {actor.roles && actor.roles.map(role => (
+        actor.roles && actor.roles.map(role => (
             characters = characters.concat(role.character)
-            ))
-        }
+        ))
         character = <p>{characters}</p>
     }
 

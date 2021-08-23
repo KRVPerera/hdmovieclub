@@ -13,7 +13,6 @@ import NoImage from '../../images/no_image.jpg'
 // Styles
 import {Wrapper, Content, Text} from './MovieInfo.styles'
 import React from "react";
-import API from "../../API";
 import Chip from "@material-ui/core/Chip";
 
 const MovieInfo = ({movie}) => {
