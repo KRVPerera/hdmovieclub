@@ -50,9 +50,9 @@ const Home = () => {
                         alt_message={movie.title}
                         movieId={movie.id}
                     >
-                        {!error2 && movie.genre_ids && movie.genre_ids.sort().map((genre, idj) => (
+                        {!error2 && movie.genre_ids && movie.genre_ids.sort().map((genre) => (
                             <Chip
-                                key={idj}
+                                key={genre.id}
                                 label={genreMap[genre]}
                                 className="chip"
                                 size="small"
