@@ -38,9 +38,9 @@ const Movie = () => {
                 {movie.actors.map(actor => (
                     <Actor
                         key={actor.id}
+                        actor={actor}
                         person_id={actor.id}
                         name={actor.name}
-                        character={actor.character}
                         imageURL={
                             actor.profile_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${actor.profile_path}` : NoImage
                         }

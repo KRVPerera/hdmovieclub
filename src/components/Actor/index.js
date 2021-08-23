@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import {Wrapper, Image} from './Actor.styles'
 import {usePeopleFetch} from "../../hooks/usePeopleFetch";
 
-const Actor = ({person_id, name, character, imageURL}) => {
+const Actor = ({actor, person_id, name, imageURL}) => {
 
     const {state: person, error} = usePeopleFetch(person_id)
 
@@ -15,11 +15,24 @@ const Actor = ({person_id, name, character, imageURL}) => {
     } else {
         actorName = <h3>{name}</h3>;
     }
+
+    let character;
+    if (actor.character) {
+        character = <p>{actor.character}</p>
+    } else {
+        let characters = "";
+        {actor.roles && actor.roles.map(role => (
+            characters = characters.concat(role.character)
+            ))
+        }
+        character = <p>{characters}</p>
+    }
+
     return (
         <Wrapper>
             <Image src={imageURL} alt={name} loading="lazy"/>
             {actorName}
-            <p>{character}</p>
+            {character}
             {!error && person.person && person.person.birthday &&
             <p>DOB: {person.person.birthday}</p>
             }

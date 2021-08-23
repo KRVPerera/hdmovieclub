@@ -14,6 +14,7 @@ import NoImage from '../../images/no_image.jpg'
 import {Wrapper, Content, Text} from './MovieInfo.styles'
 import React from "react";
 import API from "../../API";
+import Chip from "@material-ui/core/Chip";
 
 const MovieInfo = ({movie}) => {
 
@@ -24,9 +25,6 @@ const MovieInfo = ({movie}) => {
     let runtime = new Date(movie.runtime);
     let hours = Math.floor(runtime / 60);
     let minutes = runtime % 60;
-
-    const movieVideos = API.fetchMovieVideos(movie.id);
-    console.log(movieVideos)
 
     return (
         <Wrapper backdrop={movie.backdrop_path}>
@@ -41,14 +39,28 @@ const MovieInfo = ({movie}) => {
                 />
                 <Text>
                     <h1>{movie.title} ({movieYear})</h1>
-                    <h3>PLOT</h3>
-                    <h4>{movie.tagline}</h4>
+                    <Chip
+                        key="tv.type"
+                        color="primary"
+                        label={movie.status}
+                        className="chip chip-type"
+                        size="small"
+                    />
+                    {movie.genres && movie.genres.sort().map(genre => (
+                        <Chip
+                            key={genre.id}
+                            label={genre.name}
+                            className="chip"
+                            size="small"
+                        />
+                    ))}
+                    <h3>{movie.tagline}</h3>
                     <h4>{movie.overview}</h4>
 
                     <div className="rating-directors">
                         <div className="item">
                             <h3>RATING</h3>
-                            <div className="score">{movie.vote_average}</div>
+                            <div className="score">{movie.vote_average*10}%</div>
                         </div>
 
                         <div className="director item">

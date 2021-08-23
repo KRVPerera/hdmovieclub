@@ -5,6 +5,7 @@ import {POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL} from "../config"
 import Spinner from "./Spinner"
 import Chip from "@material-ui/core/Chip";
 import React from "react";
+import Avatar from '@material-ui/core/Avatar';
 import HeroImage from "./HeroImage"
 import Grid from "./Grid"
 import Thumb from "./Thumb"
@@ -39,7 +40,7 @@ const Home = () => {
             {!searchTerm && <TrendingBar/>}
             <SearchBar setSearchTerm={setSearchTerm}/>
             <Grid header={searchTerm ? 'Search Result' : 'Popular movies'}>
-                {state.results.map((movie, idx) => (
+                {state.results.map((movie) => (
                     <Thumb
                         key={movie.id}
                         clickable
@@ -50,22 +51,32 @@ const Home = () => {
                         alt_message={movie.title}
                         movieId={movie.id}
                     >
+                        <Chip
+                            key={movie.id}
+                            label={new Date(movie.release_date).toLocaleString('en-us', {year: 'numeric'})}
+                            className="chip"
+                            size="small"
+                            color="primary"
+                            avatar={<Avatar>Y</Avatar>}
+                        />
+                        <Chip
+                            key="ratings"
+                            label={`${movie.vote_average*10}%`}
+                            className="chip"
+                            size="small"
+                            color="primary"
+                            avatar={<Avatar>R</Avatar>}
+                        />
                         {!error2 && movie.genre_ids && movie.genre_ids.sort().map((genre) => (
                             <Chip
                                 key={genre.id}
                                 label={genreMap[genre]}
+                                color="primary"
                                 className="chip"
                                 size="small"
-                                variant="outlined"
                             />
                         ))}
-                        <Chip
-                            key={movie.id}
-                            label={new Date(movie.release_date).toLocaleString('en-us', { year : 'numeric'})}
-                            className="chip"
-                            size="small"
-                            variant="outlined"
-                        />
+
                     </Thumb>
                 ))}
             </Grid>

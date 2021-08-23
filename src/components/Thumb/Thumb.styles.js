@@ -24,9 +24,6 @@ export const Image = styled.img`
 `;
 
 export const Wrapper = styled.div`
+  //display: flex;
   //margin: 0 auto;
-  //display: block;
-  //display: inline;
-  //width: 100%;
-  //background-color: pink;
 `;

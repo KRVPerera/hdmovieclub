@@ -64,7 +64,7 @@ const apiSettings = {
         return await (await fetch(endpoint)).json();
     },
     fetchTVCredits: async tvId => {
-        const creditsEndpoint = `${API_URL}tv/${tvId}/credits?api_key=${API_KEY}`;
+        const creditsEndpoint = `${API_URL}tv/${tvId}/aggregate_credits?api_key=${API_KEY}`;
         return await (await fetch(creditsEndpoint)).json();
     },
     // Bonus material below for login

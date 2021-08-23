@@ -62,5 +62,8 @@ export const GlobalStyle = createGlobalStyle`
       color: var(--clr-50);
     }
 
+    .chip-type {
+      background-color: rgb(63, 81, 181);
+    }
   }
 `;

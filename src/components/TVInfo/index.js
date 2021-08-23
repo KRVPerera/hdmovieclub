@@ -13,6 +13,7 @@ import NoImage from '../../images/no_image.jpg'
 // Styles
 import {Wrapper, Content, Text} from './TVInfo.styles'
 import Chip from "@material-ui/core/Chip";
+import IMDBMovie from "../IMDBMovie";
 
 const TVInfo = ({tv}) => {
 
@@ -33,14 +34,27 @@ const TVInfo = ({tv}) => {
                 />
                 <Text>
                     <h1>{tv.name} ({tvYear})</h1>
-                    <h3>PLOT</h3>
-                    <h4>{tv.tagline}</h4>
+                    <Chip
+                        key="tv.type"
+                        color="primary"
+                        label={tv.type}
+                        className="chip chip-type"
+                        size="small"
+                    />
+                    {tv.genres && tv.genres.sort().map(genre => (
+                        <Chip
+                            key={genre.id}
+                            label={genre.name}
+                            className="chip"
+                            size="small"
+                        />
+                    ))}
+                    <h3>{tv.tagline}</h3>
                     <p>{tv.overview}</p>
-
                     <div className="rating-directors">
                         <div className="item">
                             <h3>RATING</h3>
-                            <div className="score">{tv.vote_average}</div>
+                            <div className="score">{tv.vote_average*10}%</div>
                         </div>
 
                         {tv.created_by.length > 0 && <div className="director item">
@@ -64,21 +78,6 @@ const TVInfo = ({tv}) => {
                             <div>{tv.number_of_seasons} seasons / {tv.number_of_episodes} episodes</div>
                         </div>
 
-                        <div className="item">
-                            <h3>GENRES</h3>
-                            <div>
-                                {tv.genres && tv.genres.sort().map(genre => (
-                                    <Chip
-                                        key={genre.id}
-                                        label={genre.name}
-                                        className="chip"
-                                        size="small"
-                                        variant="outlined"
-                                    />
-                                ))}
-                            </div>
-                        </div>
-
                         {longDate > 0 &&
                             <div className="item">
                                 <h3>FIRST AIR DATE</h3>
@@ -86,6 +85,7 @@ const TVInfo = ({tv}) => {
                             </div>
                         }
                     </div>
+                    {tv.imdb_id && <IMDBMovie movie={tv}/>}
                 </Text>
             </Content>
         </Wrapper>
