@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 // Components
 import Thumb from '../Thumb'
 import IMDBMovie from '../IMDBMovie'
-import Chip from '@material-ui/core/Chip';
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
 // Config
 import {IMAGE_BASE_URL, POSTER_SIZE} from "../../config"
