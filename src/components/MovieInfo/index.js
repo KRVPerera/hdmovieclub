@@ -59,17 +59,19 @@ const MovieInfo = ({movie}) => {
                     <div className="rating-directors">
                         <div className="item">
                             <h3>RATING</h3>
-                            <div className="score">{movie.vote_average*10}%</div>
+                            <div className="score">{movie.vote_average * 10}%</div>
                         </div>
 
-                        <div className="director item">
-                            <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
-                            {movie.directors.map(
-                                director => (
-                                    <p key={director.credit_id}>{director.name}</p>
-                                ))
-                            }
-                        </div>
+                        {movie.directors &&
+                            <div className="director item">
+                                <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
+                                {movie.directors.map(
+                                    director => (
+                                        <p key={director.credit_id}>{director.name}</p>
+                                    ))
+                                }
+                            </div>
+                        }
 
                         <div className="item">
                             <h3>RELEASED</h3>
@@ -77,10 +79,10 @@ const MovieInfo = ({movie}) => {
                         </div>
 
                         {movie.runtime > 0 &&
-                            <div className="item">
-                                <h3>RUNTIME</h3>
-                                <div>{hours}h {minutes}m</div>
-                            </div>
+                        <div className="item">
+                            <h3>RUNTIME</h3>
+                            <div>{hours}h {minutes}m</div>
+                        </div>
                         }
                     </div>
                     {movie.imdb_id && <IMDBMovie movie={movie}/>}

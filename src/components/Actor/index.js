@@ -22,9 +22,9 @@ const Actor = ({actor, person_id, name, imageURL}) => {
         character = <p>{actor.character}</p>
     } else {
         let characters = "";
-        {actor.roles && actor.roles.map((role, index) => (
+        actor.roles && actor.roles.map((role, index) => (
             characters = characters.concat((index>0?", ":""), role.character)
-        ))}
+        ))
         character = <p>{characters}</p>
     }
 

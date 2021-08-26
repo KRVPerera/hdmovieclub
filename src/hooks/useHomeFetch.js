@@ -13,7 +13,7 @@ const initialState = {
 
 const storageKey = "homeState"
 
-export const useHomeFetch = () => {
+export const useHomeFetch = (clubOnState) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [state, setState] = useState(initialState)
     const [loading, setLoading] = useState(false)

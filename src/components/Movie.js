@@ -24,6 +24,10 @@ const Movie = () => {
 
     if (loading) return <Spinner/>
     if (error) return <div>Something went wrong...</div>
+    if (!movie.title || !movie.actors) {
+        sessionStorage.removeItem("movie-" + movieId);
+        return <h1>Something went wrong...</h1>
+    }
 
     return (
         <>
@@ -35,7 +39,7 @@ const Movie = () => {
                 revenue={movie.revenue}
             />
             <Grid header='Actors'>
-                {movie.actors.map(actor => (
+                {movie.actors && movie.actors.map(actor => (
                     <Actor
                         key={actor.id}
                         actor={actor}

@@ -6,9 +6,9 @@ import searchIcon from '../../images/search-icon.svg'
 // Styles
 import {Wrapper, Content} from './SearchBar.styles'
 
-const SearchBar = ({setSearchTerm}) => {
-    const [state, setState] = useState('');
 
+const SearchBar = ({setSearchTerm, clubOnState}) => {
+    const [state, setState] = useState('');
     const initial = useRef(true);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const SearchBar = ({setSearchTerm}) => {
             setSearchTerm(state);
         }, 500)
         return () => clearTimeout(timer);
-    },[setSearchTerm, state])
+    }, [setSearchTerm, state])
 
     return (
         <Wrapper>

@@ -43,12 +43,20 @@ export const Content = styled.div`
       width: 94%;
     }
   }
+
+  Switch {
+    float: right;
+  }
   
   input[type=text]
   {
     height: 95%;
     line-height: 30px;
     padding:0 10px;
+  }
+
+  FormGroup {
+    display: flex;
   }
 `;
 

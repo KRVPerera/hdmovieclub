@@ -1,11 +1,13 @@
 // Config
-import {POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL} from "../config"
+import {POSTER_SIZE, IMAGE_BASE_URL} from "../config"
 
 // Components
+import React from 'react';
 import Spinner from "./Spinner"
 import Chip from "@material-ui/core/Chip";
-import React from "react";
 import Avatar from '@material-ui/core/Avatar';
+
+// my components
 import HeroImage from "./HeroImage"
 import Grid from "./Grid"
 import Thumb from "./Thumb"
@@ -17,9 +19,9 @@ import TrendingBar from "./TrendingBar";
 import {useHomeFetch} from '../hooks/useHomeFetch'
 import {useMovieGenreFetch} from "../hooks/useMovieGenreFetch";
 
-const Home = () => {
+const Home = ({clubOnState, setClubOnState}) => {
     const {state: genres, error2} = useMovieGenreFetch()
-    const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore} = useHomeFetch();
+    const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore} = useHomeFetch(clubOnState);
 
     const genreMap = genres.genres.reduce(function (result, currentObject) {
         result[currentObject.id] = currentObject.name;
@@ -29,16 +31,16 @@ const Home = () => {
     if (error) {
         return <div>Something went wrong...</div>
     }
-
     return (
         <>
-            {!searchTerm && state.results[0] && <HeroImage
-                image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
-                title={state.results[0].original_title}
-                text={state.results[0].overview}
-            />}
+            {!searchTerm && state.results[0] &&
+            <HeroImage
+                movie={state.results[0]}
+                clubOnState={clubOnState}
+            />
+            }
             {!searchTerm && <TrendingBar/>}
-            <SearchBar setSearchTerm={setSearchTerm}/>
+            <SearchBar setSearchTerm={setSearchTerm} clubOnState={clubOnState}/>
             <Grid header={searchTerm ? 'Search Result' : 'Popular movies'}>
                 {state.results.map((movie) => (
                     <Thumb

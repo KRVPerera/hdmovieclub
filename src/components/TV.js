@@ -23,6 +23,10 @@ const TV = () => {
 
     if (loading) return <Spinner/>
     if (error) return <div>Something went wrong...</div>
+    if (!tv.name || !tv.actors) {
+        sessionStorage.removeItem("tv-" + tvId);
+        return <h1>Something went wrong...</h1>
+    }
 
     return (
         <>

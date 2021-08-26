@@ -18,6 +18,21 @@ export const Content = styled.div`
     color: var(--clr-50);
     text-decoration: none;
   }
+
+  .MuiFormControlLabel-label{
+    width: 150px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .clubImage,
+  .noimage {
+    width: 200px;
+    //background-color: var(--clr-500);
+  }
+
 `;
 
 export const LogoImg = styled.img`
