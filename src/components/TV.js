@@ -2,7 +2,7 @@ import React from 'react'
 import {useParams} from 'react-router-dom'
 
 // Config
-import {IMAGE_BASE_URL, POSTER_SIZE} from "../config"
+import {IMAGE_BASE_URL, POSTER_SIZE, SHARE_SIZE} from "../config"
 
 // Components
 import Grid from "./Grid";
@@ -16,6 +16,7 @@ import {useTVFetch} from "../hooks/useTVFetch";
 
 // Image
 import NoImage from '../images/no_image.jpg'
+import MetaDecorator from "./utils/MetaDecorator";
 
 const TV = () => {
     const {tvId} = useParams()
@@ -30,6 +31,12 @@ const TV = () => {
 
     return (
         <>
+            <MetaDecorator
+                title={tv.name}
+                description={tv.overview}
+                type="tv"
+                imagelink={`${IMAGE_BASE_URL}${SHARE_SIZE}${tv.poster_path}`}
+            />
             <BreadCrumb movieTitle={tv.name}/>
             <TVInfo tv={tv}/>
 
