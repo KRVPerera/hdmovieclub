@@ -23,7 +23,7 @@ import TvIcon from '@material-ui/icons/Tv';
 import QueuePlayNextIcon from '@material-ui/icons/QueuePlayNext';
 
 const TrendingBar = () => {
-    const {state, loading, error, setIsLoadingMore, isLoadingMore, loadWidth, scrollRight, setScrollRight} = useTrendFetch();
+    const {state, loading, error, setIsLoadingMore, loadWidth, scrollRight, setScrollRight} = useTrendFetch();
 
     const navRef = useRef(null);
 
