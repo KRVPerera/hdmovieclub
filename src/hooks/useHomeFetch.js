@@ -20,13 +20,16 @@ export const useHomeFetch = (clubOnState) => {
     const [error, setError] = useState(false)
     const [isLoadingMore, setIsLoadingMore] = useState(false)
 
-    const fetchMovies = async (page, searchTerm = "") => {
+    const fetchMovies = async (page, searchTerm = "", clubOnState) => {
         try {
             setError(false)
             setLoading(true)
-
-            const movies = await API.fetchMovies(searchTerm, page)
-
+            let movies;
+            if (!clubOnState) {
+                movies = await API.fetchMovies(searchTerm, page)
+            } else {
+                movies = await API.fetchHdMovieClubMovies(searchTerm, page)
+            }
             setState(prevState => ({
                 ...movies,
                 results:
@@ -56,10 +59,10 @@ export const useHomeFetch = (clubOnState) => {
     useEffect(() => {
         if (!isLoadingMore) return;
 
-        fetchMovies(state.page + 1, searchTerm);
+        fetchMovies(state.page + 1, searchTerm, clubOnState);
         setIsLoadingMore(false);
 
-    }, [isLoadingMore, searchTerm, state.page])
+    }, [isLoadingMore, searchTerm, state.page, clubOnState])
 
     // write to sessionStorage
     useEffect(() => {

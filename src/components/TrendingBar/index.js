@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 
 // import PropTypes from 'prop-types'
@@ -16,41 +16,24 @@ import {IMAGE_BASE_URL, TV_POSTER_SIZE} from "../../config";
 import Slide from "../Slide";
 import Spinner from "../Spinner";
 import Fab from '@material-ui/core/Fab';
+
+// Icons
 import DoubleArrowSharpIcon from '@material-ui/icons/DoubleArrowSharp';
 import TvIcon from '@material-ui/icons/Tv';
+import QueuePlayNextIcon from '@material-ui/icons/QueuePlayNext';
 
 const TrendingBar = () => {
-    const prevScrollLeft = useRef(0);
-    const {state, loading, error, setIsLoadingMore} = useTrendFetch();
-    const [scroll, setScroll] = useState(0);
-    // const [goingLeft, setGoingLeft] = useState(false);
+    const {state, loading, error, setIsLoadingMore, isLoadingMore, loadWidth, scrollRight, setScrollRight} = useTrendFetch();
 
     const navRef = useRef(null);
 
     useEffect(() => {
-        // var maxScrollLeft = element.scrollWidth - element.clientWidth;
-        prevScrollLeft.current = navRef.current.scrollLeft;
-        navRef.current.scrollLeft += scroll;
-    }, [scroll]);
+        // navRef.current.scrollLeft += 10;
+        if (!scrollRight) return;
 
-    //
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         const currentScrollLeft = navRef.current.scrollLeft;
-    //         if (prevScrollLeft.current < currentScrollLeft && goingLeft) {
-    //             setGoingLeft(false);
-    //         }
-    //         if (prevScrollLeft.current > currentScrollLeft && !goingLeft) {
-    //             setGoingLeft(true);
-    //         }
-    //
-    //         prevScrollLeft.current = currentScrollLeft;
-    //     };
-    //
-    //     window.addEventListener("scroll", handleScroll, { passive: true });
-    //
-    //     return () => window.removeEventListener("scroll", handleScroll);
-    // }, [goingLeft]);
+        navRef.current.scrollLeft += (loadWidth + 1) * 150;
+        setScrollRight(false)
+    }, [scrollRight, loadWidth, setScrollRight]);
 
     if (error) {
         return <div>Something went wrong...</div>
@@ -58,20 +41,20 @@ const TrendingBar = () => {
 
     return (
         <>
-            {loading && <Spinner/>}
-            {!loading &&
-            <Wrapper>
+            {state.page === 0 && <Spinner/>}
+            {<Wrapper>
                 <Content>
                     <Title>Trending Shows</Title>
                     <SlideBar ref={navRef}>
                         {!loading && (
                             <Fab size="small" variant="circular" color='inherit' aria-label="end"
-                                 className="TrendBarFab TrendBarFabLeft" onClick={() => setScroll(scroll + 200)}>
+                                 className="TrendBarFab TrendBarFabLeft"
+                                 onClick={() => setScrollRight(true)}>
                                 <DoubleArrowSharpIcon/>
                             </Fab>
                         )}
                         {
-                            state.results.map(tv => (
+                            state.results.filter((tv, i) => i < loadWidth).map(tv => (
                                 <Slide
                                     key={tv.id}
                                     clickable
@@ -81,12 +64,15 @@ const TrendingBar = () => {
                                     }
                                     alt_message={tv.name}
                                     tvId={tv.id}/>
-                            ))}
-                        {state.page < state.total_pages && !loading && (
+                            ))
+
+                        }
+                        {/*{state.page < state.total_pages && !loading && (*/}
+                        {!loading && (
                             <TwoButtons>
                                 <Fab variant="circular" color='inherit' aria-label="more"
                                      onClick={() => setIsLoadingMore(true)} className="TrendBarFab TrendBarFabRight">
-                                    <DoubleArrowSharpIcon/>
+                                    <QueuePlayNextIcon/>
                                 </Fab>
                                 <Link to={`/`}>
                                     <Fab variant="circular" color='inherit' aria-label="tvs"

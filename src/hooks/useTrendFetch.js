@@ -20,6 +20,8 @@ export const useTrendFetch = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [isLoadingMore, setIsLoadingMore] = useState(false)
+    const [loadWidth, setLoadWidth] = useState(10)
+    const [scrollRight, setScrollRight] = useState(false);
 
     const fetchTrendingTvs = async (page) => {
         try {
@@ -55,15 +57,23 @@ export const useTrendFetch = () => {
     useEffect(() => {
         if (!isLoadingMore) return;
 
-        fetchTrendingTvs(state.page + 1);
+        setLoadWidth(loadWidth + 10)
+        fetchTrendingTvs(state.page + 1)
+        // setScroll(scroll + document.documentElement.scrollHeight + 200)
         setIsLoadingMore(false);
+        setScrollRight(true);
 
     }, [isLoadingMore, state.page])
 
     // write to sessionStorage
     useEffect(() => {
-        sessionStorage.setItem(storageKey, JSON.stringify(state))
+        try {
+            sessionStorage.setItem(storageKey, JSON.stringify(state))
+        } catch (error) {
+            // setError(true)
+            sessionStorage.clear();
+        }
     }, [state])
 
-    return {state, loading, error, setIsLoadingMore}
+    return {state, loading, error, setIsLoadingMore, isLoadingMore, loadWidth, scrollRight, setScrollRight}
 }

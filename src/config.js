@@ -2,6 +2,7 @@
 // Read more about the API here: https://developers.themoviedb.org/
 
 const API_URL = 'https://api.themoviedb.org/3/';
+const API_URL_V4 = 'https://api.themoviedb.org/4/';
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const SEARCH_BASE_URL = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=`;
@@ -10,6 +11,8 @@ const POPULAR_BASE_URL = `${API_URL}movie/popular?api_key=${API_KEY}&language=en
 const REQUEST_TOKEN_URL = `${API_URL}authentication/token/new?api_key=${API_KEY}`;
 const LOGIN_URL = `${API_URL}authentication/token/validate_with_login?api_key=${API_KEY}`;
 const SESSION_ID_URL = `${API_URL}authentication/session/new?api_key=${API_KEY}`;
+
+const SEARCH_LIST_URL = `${API_URL_V4}list/7104814?api_key=${API_KEY}&language=en-US`;
 
 const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
 // Sizes: w300, w780, w1280, original
@@ -34,5 +37,6 @@ export {
   LOGIN_URL,
   SESSION_ID_URL,
   GET_TRENDING_MOVIE_URL,
-  GET_TRENDING_TV_URL
+  GET_TRENDING_TV_URL,
+  SEARCH_LIST_URL
 };

@@ -7,7 +7,8 @@ import {
     LOGIN_URL,
     SESSION_ID_URL,
     GET_TRENDING_MOVIE_URL,
-    GET_TRENDING_TV_URL
+    GET_TRENDING_TV_URL,
+    SEARCH_LIST_URL
 } from './config';
 
 const defaultConfig = {
@@ -22,7 +23,10 @@ const apiSettings = {
         const endpoint = searchTerm
             ? `${SEARCH_BASE_URL}${searchTerm}&page=${page}`
             : `${POPULAR_BASE_URL}&page=${page}`;
-        console.log(endpoint)
+        return await (await fetch(endpoint)).json();
+    },
+    fetchHdMovieClubMovies: async (searchTerm, page) => {
+        const endpoint = `${SEARCH_LIST_URL}${searchTerm}&page=${page}`;
         return await (await fetch(endpoint)).json();
     },
     fetchTrendingMovies: async (page) => {

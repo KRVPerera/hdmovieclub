@@ -12,9 +12,11 @@ import NotFound from "./components/NotFound"
 
 // styles
 import {GlobalStyle} from "./GlobalStyle"
+import {useClubOnState} from "./hooks/useClubOnState";
 
 const App = () => {
-    const [clubOnState, setClubOnState] = useState(false);
+    const {clubOnState, setClubOnState} = useClubOnState();
+
     return (
         <Router>
             <Header clubOnState={clubOnState} setClubOnState={setClubOnState}/>
