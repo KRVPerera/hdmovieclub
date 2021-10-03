@@ -63,7 +63,7 @@ export const useTrendFetch = () => {
         setIsLoadingMore(false);
         setScrollRight(true);
 
-    }, [isLoadingMore, state.page])
+    }, [isLoadingMore, state.page], loadWidth)
 
     // write to sessionStorage
     useEffect(() => {

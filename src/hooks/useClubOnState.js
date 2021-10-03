@@ -10,7 +10,7 @@ export const useClubOnState = () => {
     useEffect(() => {
         const hdMovieClubClubOnState = cookies.get('hdMovieClubClubOnState')
         if (typeof hdMovieClubClubOnState !== 'undefined') {
-            if (hdMovieClubClubOnState == clubOnState) {
+            if (hdMovieClubClubOnState === clubOnState) {
                 setClubOnState(hdMovieClubClubOnState)
             }
             cookies.set('hdMovieClubClubOnState', clubOnState, {path: '/'});
