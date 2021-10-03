@@ -19,6 +19,7 @@ const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
 const BACKDROP_SIZE = 'w1280';
 // w92, w154, w185, w342, w500, w780, original
 const POSTER_SIZE = 'w780';
+const SHARE_SIZE = 'w500';
 const TV_POSTER_SIZE = 'w300';
 
 const GET_TRENDING_MOVIE_URL = `${API_URL}/trending/movie/week?api_key=${API_KEY}&language=en-US`;
@@ -38,5 +39,6 @@ export {
   SESSION_ID_URL,
   GET_TRENDING_MOVIE_URL,
   GET_TRENDING_TV_URL,
-  SEARCH_LIST_URL
+  SEARCH_LIST_URL,
+  SHARE_SIZE
 };

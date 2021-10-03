@@ -1,8 +1,10 @@
 import React from 'react'
 import {useParams} from 'react-router-dom'
+import {Helmet} from "react-helmet";
+
 
 // Config
-import {IMAGE_BASE_URL, POSTER_SIZE} from "../config"
+import {IMAGE_BASE_URL, POSTER_SIZE, SHARE_SIZE} from "../config"
 
 // Components
 import Grid from "./Grid";
@@ -17,6 +19,7 @@ import {useMovieFetch} from "../hooks/useMovieFetch";
 
 // Image
 import NoImage from '../images/no_image.jpg'
+import MetaDecorator from "./utils/MetaDecorator";
 
 const Movie = () => {
     const {movieId} = useParams()
@@ -31,6 +34,12 @@ const Movie = () => {
 
     return (
         <>
+            <MetaDecorator
+                title={movie.title}
+                description={movie.overview}
+                type={movie}
+                imagelink={`${IMAGE_BASE_URL}${SHARE_SIZE}${movie.poster_path}`}
+            />
             <BreadCrumb movieTitle={movie.title}/>
             <MovieInfo movie={movie}/>
             <MovieInfoBar
