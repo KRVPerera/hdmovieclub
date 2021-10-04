@@ -26,13 +26,14 @@ const SearchBar = ({setSearchTerm}) => {
 
     return (
         <Wrapper>
-            {!gState && <Content>
-                <img src={searchIcon} alt='searchIcon'/>
-                <input type='text' placeholder='Search Movie'
-                       onChange={event => setState(event.currentTarget.value)}
-                       value={state}
-                />
-            </Content>
+            {!gState.clubOnState &&
+                <Content>
+                    <img src={searchIcon} alt='searchIcon'/>
+                    <input type='text' placeholder='Search Movie'
+                           onChange={event => setState(event.currentTarget.value)}
+                           value={state}
+                    />
+                </Content>
             }
         </Wrapper>
     )
