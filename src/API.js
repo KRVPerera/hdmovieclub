@@ -20,13 +20,15 @@ const defaultConfig = {
 
 const apiSettings = {
     fetchMovies: async (searchTerm, page) => {
+        console.log("Fetching the normal list : " + searchTerm)
         const endpoint = searchTerm
             ? `${SEARCH_BASE_URL}${searchTerm}&page=${page}`
             : `${POPULAR_BASE_URL}&page=${page}`;
         return await (await fetch(endpoint)).json();
     },
     fetchHdMovieClubMovies: async (searchTerm, page) => {
-        const endpoint = `${SEARCH_LIST_URL}${searchTerm}&page=${page}`;
+        console.log("Fetching the list : " + searchTerm)
+        const endpoint = `${SEARCH_LIST_URL}&page=${page}`;
         return await (await fetch(endpoint)).json();
     },
     fetchTrendingMovies: async (page) => {

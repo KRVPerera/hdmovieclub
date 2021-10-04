@@ -62,7 +62,13 @@ export const useHomeFetch = (clubOnState) => {
         fetchMovies(state.page + 1, searchTerm, clubOnState);
         setIsLoadingMore(false);
 
-    }, [isLoadingMore, searchTerm, state.page, clubOnState])
+    }, [isLoadingMore, searchTerm, state.page])
+
+
+    useEffect(() => {
+        fetchMovies(1, searchTerm, clubOnState);
+        setIsLoadingMore(false);
+    }, [clubOnState])
 
     // write to sessionStorage
     useEffect(() => {
