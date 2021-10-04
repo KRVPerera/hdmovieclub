@@ -22,8 +22,8 @@ import DoubleArrowSharpIcon from '@material-ui/icons/DoubleArrowSharp';
 import TvIcon from '@material-ui/icons/Tv';
 import QueuePlayNextIcon from '@material-ui/icons/QueuePlayNext';
 
-const TrendingBar = () => {
-    const {state, loading, error, setIsLoadingMore, loadWidth, scrollRight, setScrollRight} = useTrendFetch();
+const TrendingBar = ({clubOnState}) => {
+    const {state, loading, error, setIsLoadingMore, loadWidth, scrollRight, setScrollRight, tvCount} = useTrendFetch(clubOnState);
 
     const navRef = useRef(null);
 
@@ -44,7 +44,7 @@ const TrendingBar = () => {
             {state.page === 0 && <Spinner/>}
             {<Wrapper>
                 <Content>
-                    <Title>Trending Shows</Title>
+                    <Title>{clubOnState? `HD Movie Club Shows : ${tvCount}` : "Trending Shows"}</Title>
                     <SlideBar ref={navRef}>
                         {!loading && (
                             <Fab size="small" variant="circular" color='inherit' aria-label="end"

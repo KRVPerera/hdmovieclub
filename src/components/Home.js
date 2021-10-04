@@ -21,7 +21,7 @@ import {useMovieGenreFetch} from "../hooks/useMovieGenreFetch";
 
 const Home = ({clubOnState, setClubOnState}) => {
     const {state: genres, error2} = useMovieGenreFetch()
-    const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore} = useHomeFetch(clubOnState);
+    const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, movieCount} = useHomeFetch(clubOnState);
 
     const genreMap = genres.genres.reduce(function (result, currentObject) {
         result[currentObject.id] = currentObject.name;
@@ -39,9 +39,9 @@ const Home = ({clubOnState, setClubOnState}) => {
                 clubOnState={clubOnState}
             />
             }
-            {!searchTerm && <TrendingBar/>}
-            <SearchBar setSearchTerm={setSearchTerm} clubOnState={clubOnState}/>
-            <Grid header={searchTerm ? 'Search Result' : 'Popular movies'}>
+            {!searchTerm && <TrendingBar clubOnState={clubOnState}/>}
+            {!clubOnState && <SearchBar setSearchTerm={setSearchTerm} clubOnState={clubOnState}/>}
+            <Grid header={searchTerm ? 'Search Result' : clubOnState? `HD Movie Club Movies : ${movieCount}` : 'Popular movies'}>
                 {state.results.map((movie) => (
                     <Thumb
                         key={movie.id}
@@ -69,7 +69,7 @@ const Home = ({clubOnState, setClubOnState}) => {
                             color="primary"
                             avatar={<Avatar>R</Avatar>}
                         />
-                        {!error2 && movie.genre_ids && movie.genre_ids.sort().map((genre) => (
+                        {!clubOnState && !error2 && movie.genre_ids && movie.genre_ids.sort().map((genre) => (
                             <Chip
                                 key={genre.id}
                                 label={genreMap[genre]}

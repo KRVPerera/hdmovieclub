@@ -19,6 +19,7 @@ export const useHomeFetch = (clubOnState) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [isLoadingMore, setIsLoadingMore] = useState(false)
+    const [movieCount, setMovieCount] = useState(0)
 
     const fetchMovies = async (page, searchTerm = "", clubOnState) => {
         try {
@@ -29,6 +30,10 @@ export const useHomeFetch = (clubOnState) => {
                 movies = await API.fetchMovies(searchTerm, page)
             } else {
                 movies = await API.fetchHdMovieClubMovies(searchTerm, page)
+                movies.results = movies.results.filter(function(movie) {
+                    return movie.media_type === "movie";
+                })
+                setMovieCount(movies.total_results)
             }
             setState(prevState => ({
                 ...movies,
@@ -62,18 +67,17 @@ export const useHomeFetch = (clubOnState) => {
         fetchMovies(state.page + 1, searchTerm, clubOnState);
         setIsLoadingMore(false);
 
-    }, [isLoadingMore, searchTerm, state.page])
+    }, [isLoadingMore, searchTerm, state.page, clubOnState])
 
 
     useEffect(() => {
         fetchMovies(1, searchTerm, clubOnState);
-        setIsLoadingMore(false);
-    }, [clubOnState])
+    }, [clubOnState, searchTerm])
 
     // write to sessionStorage
     useEffect(() => {
         if (!searchTerm) sessionStorage.setItem(storageKey, JSON.stringify(state))
     }, [searchTerm, state])
 
-    return {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore}
+    return {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, movieCount}
 }

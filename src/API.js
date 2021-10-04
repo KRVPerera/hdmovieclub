@@ -8,7 +8,8 @@ import {
     SESSION_ID_URL,
     GET_TRENDING_MOVIE_URL,
     GET_TRENDING_TV_URL,
-    SEARCH_LIST_URL
+    SEARCH_LIST_URL,
+    SEARCH_LIST_TV_URL
 } from './config';
 
 const defaultConfig = {
@@ -20,20 +21,21 @@ const defaultConfig = {
 
 const apiSettings = {
     fetchMovies: async (searchTerm, page) => {
-        console.log("Fetching the normal list : " + searchTerm)
         const endpoint = searchTerm
             ? `${SEARCH_BASE_URL}${searchTerm}&page=${page}`
             : `${POPULAR_BASE_URL}&page=${page}`;
         return await (await fetch(endpoint)).json();
     },
     fetchHdMovieClubMovies: async (searchTerm, page) => {
-        console.log("Fetching the list : " + searchTerm)
         const endpoint = `${SEARCH_LIST_URL}&page=${page}`;
+        return await (await fetch(endpoint)).json();
+    },
+    fetchHdMovieClubShows: async (page) => {
+        const endpoint = `${SEARCH_LIST_TV_URL}&page=${page}`;
         return await (await fetch(endpoint)).json();
     },
     fetchTrendingMovies: async (page) => {
         const endpoint = `${GET_TRENDING_MOVIE_URL}&page=${page}`;
-
         return await (await fetch(endpoint)).json();
     },
     fetchTrendingTVs: async (page) => {
