@@ -9,11 +9,11 @@ export const useClubOnState = () => {
     useEffect(() => {
         const hdMovieClubClubOnState = cookies.get('hdMovieClubClubOnState')
         if (typeof hdMovieClubClubOnState !== 'undefined') {
-            if (hdMovieClubClubOnState !== clubOnState) {
-                cookies.set('hdMovieClubClubOnState', hdMovieClubClubOnState, {path: '/'});
-                setClubOnState(hdMovieClubClubOnState)
+            if (hdMovieClubClubOnState === "false") {
+                setClubOnState(false)
+            } else {
+                setClubOnState(true)
             }
-            return
         }
     }, [])
 

@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 // logos
 import RMDBLogo from '../../images/react-movie-logo.svg'
@@ -12,7 +13,14 @@ import Switch from "@material-ui/core/Switch";
 import FormGroup from "@material-ui/core/FormGroup";
 import React from "react";
 
+const cookies = new Cookies();
+
 const Header = ({clubOnState, setClubOnState}) => {
+
+    function setClubStatusAndCookie(state) {
+        cookies.set('hdMovieClubClubOnState', state, {path: '/'});
+        setClubOnState(state)
+    }
 
     return (
         <header>
@@ -26,7 +34,7 @@ const Header = ({clubOnState, setClubOnState}) => {
                         <FormControlLabel control={
                             <Switch
                                 checked={clubOnState}
-                                onChange={() => setClubOnState(!clubOnState)}
+                                onChange={() => setClubStatusAndCookie(!clubOnState)}
                                 name="on"
                                 color="primary"
                             />

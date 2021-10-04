@@ -43,10 +43,6 @@ export const useTrendFetch = (clubOnState) => {
 
             } else {
                 tvs = await API.fetchHdMovieClubShows(1)
-                console.log(tvs.results)
-                tvs.results = tvs.results.filter(function(tv) {
-                    return tv.media_type === "tv";
-                })
                 setState(prevState => ({
                     ...tvs,
                     results: [...tvs.results]

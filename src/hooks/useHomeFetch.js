@@ -30,9 +30,6 @@ export const useHomeFetch = (clubOnState) => {
                 movies = await API.fetchMovies(searchTerm, page)
             } else {
                 movies = await API.fetchHdMovieClubMovies(searchTerm, page)
-                movies.results = movies.results.filter(function(movie) {
-                    return movie.media_type === "movie";
-                })
                 setMovieCount(movies.total_results)
             }
             setState(prevState => ({

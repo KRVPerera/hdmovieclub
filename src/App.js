@@ -14,9 +14,6 @@ import NotFound from "./components/NotFound"
 import {GlobalStyle} from "./GlobalStyle"
 import {useClubOnState} from "./hooks/useClubOnState";
 
-
-import Cookies from 'universal-cookie';
-
 const App = () => {
     const {clubOnState, setClubOnState} = useClubOnState();
     return (
