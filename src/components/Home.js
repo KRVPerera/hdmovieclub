@@ -58,7 +58,7 @@ const Home = () => {
                         movieId={movie.id}
                     >
                         <Chip
-                            key={movie.id}
+                            key="movie_date"
                             label={new Date(movie.release_date).toLocaleString('en-us', {year: 'numeric'})}
                             className="chip"
                             size="small"
@@ -73,7 +73,9 @@ const Home = () => {
                             color="primary"
                             avatar={<Avatar>R</Avatar>}
                         />
-                        {!gState.clubOnState && !error2 && movie.genre_ids && movie.genre_ids.sort().map((genre) => (
+                        {!gState.clubOnState && !error2 && movie.genre_ids && movie.genre_ids.filter((value, index, a) =>
+                            a.indexOf(value) === index
+                        ).sort().map((genre) => (
                             <Chip
                                 key={genre.id}
                                 label={genreMap[genre]}

@@ -1,10 +1,10 @@
 [build]
-  publish = "public"
+  publish = "build"
   command = "yarn build"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "14.16.0"
 
 [functions]
-#   directory = ".netlify/functions"
   node_bundler = "esbuild"

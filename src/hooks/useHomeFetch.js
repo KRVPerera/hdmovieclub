@@ -23,25 +23,28 @@ export const useHomeFetch = () => {
     const [isLoadingMore, setIsLoadingMore] = useState(false)
     const [movieCount, setMovieCount] = useState(0)
 
-    const fetchMovies = async (page, searchTerm = "love", clubOnState) => {
+    const fetchMovies = async (page, searchTerm = "", clubOnState) => {
+
         try {
             setError(false)
             setLoading(true)
             let movies;
             if (!clubOnState) {
                 movies = await API.fetchMovies(searchTerm, page)
-                console.log(movies)
             } else {
                 movies = await API.fetchHdMovieClubMovies(searchTerm, page)
                 setMovieCount(movies.total_results)
             }
+
+            // movies.results.sort((a,b) =>{
+            //     return b.release_date - a.release_date;
+            // } )
             setState(prevState => ({
                 ...movies,
                 results:
                     page > 1 ? [...prevState.results, ...movies.results] : [...movies.results]
             }))
         } catch (error) {
-            console.log(error)
             setError(true)
         }
         setLoading(false)
