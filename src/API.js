@@ -21,10 +21,27 @@ const defaultConfig = {
 
 const apiSettings = {
     fetchMovies: async (searchTerm, page) => {
-        const endpoint = searchTerm
-            ? `${SEARCH_BASE_URL}${searchTerm}&page=${page}`
-            : `${POPULAR_BASE_URL}&page=${page}`;
-        return await (await fetch(endpoint)).json();
+        // const endpoint = searchTerm
+        //     ? `${SEARCH_BASE_URL}&term=${searchTerm}&page=${page}`
+        //     : `${POPULAR_BASE_URL}&page=${page}`;
+        const endpoint = `/.netlify/functions/search-movie?&term=${searchTerm}&page=${page}`;
+        const response = await fetch(endpoint, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log('response ?', response)
+        try {
+            const data = await response.json();
+            console.log('response data?', data)
+        } catch (error) {
+            console.log('Error happened here!');
+            console.error(error);
+        }
+        // const response = await fetch(endpoint)
+        return response;
+        // return await (`${SEARCH_BASE_URL}&term=${searchTerm}&page=${page}`);
     },
     fetchHdMovieClubMovies: async (searchTerm, page) => {
         const endpoint = `${SEARCH_LIST_URL}&page=${page}`;
