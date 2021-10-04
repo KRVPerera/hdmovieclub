@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useContext, useEffect, useRef} from 'react'
 import {Link} from 'react-router-dom'
 
 // import PropTypes from 'prop-types'
@@ -21,11 +21,12 @@ import Fab from '@material-ui/core/Fab';
 import DoubleArrowSharpIcon from '@material-ui/icons/DoubleArrowSharp';
 import TvIcon from '@material-ui/icons/Tv';
 import QueuePlayNextIcon from '@material-ui/icons/QueuePlayNext';
-import PropTypes from "prop-types";
+import {Context} from "../../Store";
 
 
-const TrendingBar = ({clubOnState}) => {
-    const {state, loading, error, setIsLoadingMore, loadWidth, scrollRight, setScrollRight, tvCount} = useTrendFetch(clubOnState);
+const TrendingBar = () => {
+    const [gState] = useContext(Context)
+    const {state, loading, error, setIsLoadingMore, loadWidth, scrollRight, setScrollRight, tvCount} = useTrendFetch();
 
     const navRef = useRef(null);
 
@@ -46,7 +47,7 @@ const TrendingBar = ({clubOnState}) => {
             {state.page === 0 && <Spinner/>}
             {<Wrapper>
                 <Content>
-                    <Title>{clubOnState? `HD Movie Club Shows : ${tvCount}` : "Trending Shows"}</Title>
+                    <Title>{gState.clubOnState? `HD Movie Club Shows : ${tvCount}` : "Trending Shows"}</Title>
                     <SlideBar ref={navRef}>
                         {!loading && (
                             <Fab size="small" variant="circular" color='inherit' aria-label="end"
@@ -91,10 +92,6 @@ const TrendingBar = ({clubOnState}) => {
             }
         </>
     )
-}
-
-TrendingBar.propTypes = {
-    clubOnState: PropTypes.bool.isRequired,
 }
 
 export default TrendingBar;

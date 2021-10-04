@@ -1,8 +1,9 @@
-import {useEffect, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import API from "../API";
 
 // helpers
 import {isPersistedState} from "../helpers"
+import {Context} from "../Store";
 
 const initialState = {
     page: 0,
@@ -13,7 +14,8 @@ const initialState = {
 
 const storageKey = "homeState"
 
-export const useHomeFetch = (clubOnState) => {
+export const useHomeFetch = () => {
+    const [gState] = useContext(Context)
     const [searchTerm, setSearchTerm] = useState('');
     const [state, setState] = useState(initialState)
     const [loading, setLoading] = useState(false)
@@ -54,22 +56,22 @@ export const useHomeFetch = (clubOnState) => {
         }
 
         setState(initialState)
-        fetchMovies(1, searchTerm)
-    }, [searchTerm])
+        fetchMovies(1, searchTerm, gState.clubOnState)
+    }, [searchTerm, gState.clubOnState])
 
     // load more
     useEffect(() => {
         if (!isLoadingMore) return;
 
-        fetchMovies(state.page + 1, searchTerm, clubOnState);
+        fetchMovies(state.page + 1, searchTerm, gState.clubOnState);
         setIsLoadingMore(false);
 
-    }, [isLoadingMore, searchTerm, state.page, clubOnState])
+    }, [isLoadingMore, searchTerm, state.page, gState.clubOnState])
 
 
     useEffect(() => {
-        fetchMovies(1, searchTerm, clubOnState);
-    }, [clubOnState, searchTerm])
+        fetchMovies(1, searchTerm, gState.clubOnState);
+    }, [gState.clubOnState, searchTerm])
 
     // write to sessionStorage
     useEffect(() => {

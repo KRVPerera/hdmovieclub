@@ -11,15 +11,21 @@ import {Wrapper, Content, LogoImg, TMDBLogoImg} from "./Header.styles"
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import FormGroup from "@material-ui/core/FormGroup";
-import React from "react";
+import React, {useContext} from "react";
+import {Context} from "../../Store";
 
 const cookies = new Cookies();
 
-const Header = ({clubOnState, setClubOnState}) => {
+const Header = () => {
 
-    function setClubStatusAndCookie(state) {
-        cookies.set('hdMovieClubClubOnState', state, {path: '/'});
-        setClubOnState(state)
+    const [gState, setGState] = useContext(Context)
+
+    const flipClubStatusAndCookie = async () => {
+        setGState(prevState => ({
+                clubOnState: !prevState.clubOnState
+            })
+        )
+        cookies.set('hdMovieClubClubOnState', gState, {path: '/'});
     }
 
     return (
@@ -33,13 +39,13 @@ const Header = ({clubOnState, setClubOnState}) => {
                     <FormGroup row className="clubButton">
                         <FormControlLabel control={
                             <Switch
-                                checked={clubOnState}
-                                onChange={() => setClubStatusAndCookie(!clubOnState)}
+                                checked={gState.clubOnState}
+                                onChange={() => flipClubStatusAndCookie()}
                                 name="on"
                                 color="primary"
                             />
                         }
-                                          label={clubOnState ? "\tHD Movie club" : "\tAll Movies"}
+                                          label={gState.clubOnState ? "\tHD Movie club" : "\tAll Movies"}
                         />
                     </FormGroup>
 

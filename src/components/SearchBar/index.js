@@ -7,7 +7,7 @@ import searchIcon from '../../images/search-icon.svg'
 import {Wrapper, Content} from './SearchBar.styles'
 
 
-const SearchBar = ({setSearchTerm, clubOnState}) => {
+const SearchBar = ({setSearchTerm}) => {
     const [state, setState] = useState('');
     const initial = useRef(true);
 
@@ -37,7 +37,6 @@ const SearchBar = ({setSearchTerm, clubOnState}) => {
 
 SearchBar.propTypes = {
     setSearchTerm: PropTypes.func,
-    clubOnState: PropTypes.bool,
 }
 
 export default SearchBar;

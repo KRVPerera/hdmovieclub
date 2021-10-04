@@ -1,8 +1,9 @@
-import {useEffect, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import API from "../API";
 
 // helpers
 import {isPersistedState} from "../helpers"
+import {Context} from "../Store";
 // import useWindowDimensions from "../components/utils";
 // import {number} from "prop-types";
 
@@ -15,7 +16,8 @@ const initialState = {
 
 const storageKey = "trendingMoviesState"
 
-export const useTrendFetch = (clubOnState) => {
+export const useTrendFetch = () => {
+    const [gState] = useContext(Context)
     const [state, setState] = useState(initialState)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -58,10 +60,10 @@ export const useTrendFetch = (clubOnState) => {
     }
 
     useEffect(() => {
-        fetchTrendingTvs(1, clubOnState);
-    }, [clubOnState])
+        fetchTrendingTvs(1);
+    }, [gState.clubOnState])
 
-    // initial render and search
+    // initial render
     useEffect(() => {
         const sessionState = isPersistedState(storageKey)
         if (sessionState) {
@@ -70,20 +72,19 @@ export const useTrendFetch = (clubOnState) => {
         }
 
         setState(initialState)
-        fetchTrendingTvs(1, clubOnState)
-    }, [clubOnState])
+        fetchTrendingTvs(1, gState.clubOnState)
+    }, [gState.clubOnState])
 
     // load more
     useEffect(() => {
         if (!isLoadingMore) return;
 
         setLoadWidth(loadWidth + 10)
-        fetchTrendingTvs(state.page + 1, clubOnState)
-        // setScroll(scroll + document.documentElement.scrollHeight + 200)
+        fetchTrendingTvs(state.page + 1, gState.clubOnState)
         setIsLoadingMore(false);
         setScrollRight(true);
 
-    }, [isLoadingMore, state.page, loadWidth, clubOnState])
+    }, [isLoadingMore, state.page, loadWidth, gState.clubOnState])
 
     // write to sessionStorage
     useEffect(() => {
@@ -93,7 +94,7 @@ export const useTrendFetch = (clubOnState) => {
             // setError(true)
             sessionStorage.clear();
         }
-    }, [state, clubOnState])
+    }, [state])
 
     return {state, loading, error, setIsLoadingMore, loadWidth, scrollRight, setScrollRight, tvCount}
 }

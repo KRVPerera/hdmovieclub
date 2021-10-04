@@ -2,7 +2,7 @@
 import {POSTER_SIZE, IMAGE_BASE_URL} from "../config"
 
 // Components
-import React from 'react';
+import React, {useContext} from 'react';
 import Spinner from "./Spinner"
 import Chip from "@material-ui/core/Chip";
 import Avatar from '@material-ui/core/Avatar';
@@ -18,11 +18,14 @@ import TrendingBar from "./TrendingBar";
 // Hook
 import {useHomeFetch} from '../hooks/useHomeFetch'
 import {useMovieGenreFetch} from "../hooks/useMovieGenreFetch";
-import PropTypes from "prop-types";
 
-const Home = ({clubOnState, setClubOnState}) => {
+// Context
+import {Context} from '../Store'
+
+const Home = () => {
+    const [gState] = useContext(Context)
     const {state: genres, error2} = useMovieGenreFetch()
-    const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, movieCount} = useHomeFetch(clubOnState);
+    const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, movieCount} = useHomeFetch();
 
     const genreMap = genres.genres.reduce(function (result, currentObject) {
         result[currentObject.id] = currentObject.name;
@@ -37,12 +40,12 @@ const Home = ({clubOnState, setClubOnState}) => {
             {!searchTerm && state.results[0] &&
             <HeroImage
                 movie={state.results[0]}
-                clubOnState={clubOnState}
             />
             }
-            {!searchTerm && <TrendingBar clubOnState={clubOnState}/>}
-            {!clubOnState && <SearchBar setSearchTerm={setSearchTerm} clubOnState={clubOnState}/>}
-            <Grid header={searchTerm ? 'Search Result' : clubOnState? `HD Movie Club Movies : ${movieCount}` : 'Popular movies'}>
+            {!searchTerm && <TrendingBar />}
+            {!gState.clubOnState && <SearchBar setSearchTerm={setSearchTerm}/>}
+            <Grid
+                header={searchTerm ? 'Search Result' : gState.clubOnState ? `HD Movie Club Movies : ${movieCount}` : 'Popular movies'}>
                 {state.results.map((movie) => (
                     <Thumb
                         key={movie.id}
@@ -64,13 +67,13 @@ const Home = ({clubOnState, setClubOnState}) => {
                         />
                         <Chip
                             key="ratings"
-                            label={`${movie.vote_average*10}%`}
+                            label={`${movie.vote_average * 10}%`}
                             className="chip"
                             size="small"
                             color="primary"
                             avatar={<Avatar>R</Avatar>}
                         />
-                        {!clubOnState && !error2 && movie.genre_ids && movie.genre_ids.sort().map((genre) => (
+                        {!gState.clubOnState && !error2 && movie.genre_ids && movie.genre_ids.sort().map((genre) => (
                             <Chip
                                 key={genre.id}
                                 label={genreMap[genre]}
@@ -89,11 +92,6 @@ const Home = ({clubOnState, setClubOnState}) => {
             )}
         </>
     )
-}
-
-Home.propTypes = {
-    clubOnState: PropTypes.bool,
-    setClubOnState: PropTypes.func
 }
 
 

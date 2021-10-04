@@ -14,3 +14,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+#### TODOs
+- [ ] move `onClubState` to a context
+- [ ] make og:tags work
+  - [ ] check netlify edge handlers
+- [ ] create serverless function to search `HD Movie Club` movies

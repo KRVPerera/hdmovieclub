@@ -10,23 +10,25 @@ import Movie from "./components/Movie"
 import TV from "./components/TV"
 import NotFound from "./components/NotFound"
 
+import Store from './Store'
+
 // styles
 import {GlobalStyle} from "./GlobalStyle"
-import {useClubOnState} from "./hooks/useClubOnState";
 
 const App = () => {
-    const {clubOnState, setClubOnState} = useClubOnState();
     return (
-        <Router>
-            <Header clubOnState={clubOnState} setClubOnState={setClubOnState}/>
-            <Routes>
-                <Route path="/" element={<Home clubOnState={clubOnState} setClubOnState={setClubOnState}/>}/>
-                <Route path="/movie/:movieId" element={<Movie/>}/>
-                <Route path="/tv/:tvId" element={<TV/>}/>
-                <Route path="/*" element={<NotFound/>}/>
-            </Routes>
-            <GlobalStyle/>
-        </Router>
+        <Store>
+            <Router>
+                <Header/>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/movie/:movieId" element={<Movie/>}/>
+                    <Route path="/tv/:tvId" element={<TV/>}/>
+                    <Route path="/*" element={<NotFound/>}/>
+                </Routes>
+                <GlobalStyle/>
+            </Router>
+        </Store>
     );
 }
 
