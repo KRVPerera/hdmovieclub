@@ -21,6 +21,8 @@ import Fab from '@material-ui/core/Fab';
 import DoubleArrowSharpIcon from '@material-ui/icons/DoubleArrowSharp';
 import TvIcon from '@material-ui/icons/Tv';
 import QueuePlayNextIcon from '@material-ui/icons/QueuePlayNext';
+import PropTypes from "prop-types";
+
 
 const TrendingBar = ({clubOnState}) => {
     const {state, loading, error, setIsLoadingMore, loadWidth, scrollRight, setScrollRight, tvCount} = useTrendFetch(clubOnState);
@@ -89,6 +91,10 @@ const TrendingBar = ({clubOnState}) => {
             }
         </>
     )
+}
+
+TrendingBar.propTypes = {
+    clubOnState: PropTypes.bool.isRequired,
 }
 
 export default TrendingBar;

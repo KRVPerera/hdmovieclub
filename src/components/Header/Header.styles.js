@@ -10,7 +10,7 @@ export const Content = styled.div`
   align-items: center;
   justify-content: space-between;
   max-width: var(--maxWidth);
-  padding: 20px 0;
+  padding: 10px 0;
   margin: 0 auto;
   color: var(--clr-50);
 
@@ -20,17 +20,10 @@ export const Content = styled.div`
   }
 
   .MuiFormControlLabel-label{
-    width: 150px;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .clubImage,
-  .noimage {
-    width: 200px;
-    //background-color: var(--clr-500);
+
+    @media screen and (max-width: 500px) {
+      font-size: 0.8rem;
+    }
   }
 
 `;
@@ -48,5 +41,6 @@ export const TMDBLogoImg = styled.img`
 
   @media screen and (max-width: 500px) {
     width: 60px;
+    margin-right: 30px;
   }
 `;

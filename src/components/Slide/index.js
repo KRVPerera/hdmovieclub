@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import {Image} from './Slide.styles'
 
 // TODO: add hover items, release date like things
+import PropTypes from "prop-types";
 
 const Slide = ({image, alt_message, tvId, clickable}) => (
     <>
@@ -19,10 +20,10 @@ const Slide = ({image, alt_message, tvId, clickable}) => (
 )
 
 Slide.propTypes = {
-    // image: PropTypes.string,
-    // alt_message: PropTypes.string,
-    // tvId: PropTypes.number,
-    // clickable: PropTypes.bool
+    image: PropTypes.string,
+    alt_message: PropTypes.string,
+    tvId: PropTypes.number,
+    clickable: PropTypes.bool
 }
 
 export default Slide;

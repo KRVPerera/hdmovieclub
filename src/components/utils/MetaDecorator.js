@@ -15,7 +15,7 @@ const MetaDecorator = ({title, description, type, imagelink}) => (
 MetaDecorator.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    type: PropTypes.object.isRequired,
     imagelink: PropTypes.string
 }
 

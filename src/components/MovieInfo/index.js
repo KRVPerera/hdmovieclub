@@ -74,7 +74,7 @@ const MovieInfo = ({movie}) => {
                         }
 
                         <div className="item">
-                            <h3>RELEASED</h3>
+                            <h3>RELEASE DATE</h3>
                             <div>{longMonth}</div>
                         </div>
 

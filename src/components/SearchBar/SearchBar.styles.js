@@ -56,7 +56,7 @@ export const Content = styled.div`
   }
 
   FormGroup {
-    display: flex;
+    //display: flex;
   }
 `;
 

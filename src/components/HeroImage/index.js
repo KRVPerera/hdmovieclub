@@ -32,9 +32,8 @@ const HeroImage = ({movie, clubOnState}) => {
 }
 
 HeroImage.propTypes = {
-    image: PropTypes.string,
-    title: PropTypes.string,
-    text: PropTypes.string
+    movie: PropTypes.object,
+    clubOnState: PropTypes.bool,
 }
 
 export default HeroImage;

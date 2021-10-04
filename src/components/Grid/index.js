@@ -11,7 +11,8 @@ const Grid = ({header, children}) => (
 )
 
 Grid.propTypes = {
-    header: PropTypes.string
+    header: PropTypes.string,
+    children: PropTypes.array
 }
 
 export default Grid;

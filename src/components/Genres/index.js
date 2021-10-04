@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Chip from '@material-ui/core/Chip';
+import PropTypes from "prop-types";
 
 const Genre = ({genres}) => (
     <>
@@ -14,4 +15,8 @@ const Genre = ({genres}) => (
     </>
 )
 
+
+Genre.propTypes = {
+    genres: PropTypes.array
+}
 export default Genre;

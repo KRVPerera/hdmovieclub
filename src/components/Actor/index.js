@@ -41,9 +41,9 @@ const Actor = ({actor, person_id, name, imageURL}) => {
 }
 
 Actor.propTypes = {
-    person_id: PropTypes.number,
+    actor: PropTypes.object.isRequired,
+    person_id: PropTypes.number.isRequired,
     name: PropTypes.string,
-    character: PropTypes.string,
     imageURL: PropTypes.string
 }
 

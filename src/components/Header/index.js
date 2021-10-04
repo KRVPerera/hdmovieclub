@@ -40,7 +40,6 @@ const Header = ({clubOnState, setClubOnState}) => {
                             />
                         }
                                           label={clubOnState ? "\tHD Movie club" : "\tAll Movies"}
-                                          className={clubOnState ? "clubImage" : "noimage"}
                         />
                     </FormGroup>
 

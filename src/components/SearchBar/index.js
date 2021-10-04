@@ -36,7 +36,8 @@ const SearchBar = ({setSearchTerm, clubOnState}) => {
 }
 
 SearchBar.propTypes = {
-    callback: PropTypes.func
+    setSearchTerm: PropTypes.func,
+    clubOnState: PropTypes.bool,
 }
 
 export default SearchBar;

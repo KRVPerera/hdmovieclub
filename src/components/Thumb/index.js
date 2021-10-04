@@ -24,7 +24,8 @@ Thumb.propTypes = {
     image: PropTypes.string,
     alt_message: PropTypes.string,
     movieId: PropTypes.number,
-    clickable: PropTypes.bool
+    clickable: PropTypes.bool.isRequired,
+    children: PropTypes.array
 }
 
 export default Thumb;

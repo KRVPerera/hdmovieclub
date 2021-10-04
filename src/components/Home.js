@@ -18,6 +18,7 @@ import TrendingBar from "./TrendingBar";
 // Hook
 import {useHomeFetch} from '../hooks/useHomeFetch'
 import {useMovieGenreFetch} from "../hooks/useMovieGenreFetch";
+import PropTypes from "prop-types";
 
 const Home = ({clubOnState, setClubOnState}) => {
     const {state: genres, error2} = useMovieGenreFetch()
@@ -89,5 +90,11 @@ const Home = ({clubOnState, setClubOnState}) => {
         </>
     )
 }
+
+Home.propTypes = {
+    clubOnState: PropTypes.bool,
+    setClubOnState: PropTypes.func
+}
+
 
 export default Home
