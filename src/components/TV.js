@@ -26,6 +26,7 @@ const TV = () => {
     if (error) return <div>Something went wrong...</div>
     if (!tv.name || !tv.actors) {
         sessionStorage.removeItem("tv-" + tvId);
+        sessionStorage.clear();
         return (
             <>
                 <BreadCrumb movieTitle={"Unknown"}/>
