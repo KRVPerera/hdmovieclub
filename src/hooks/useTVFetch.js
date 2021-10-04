@@ -36,11 +36,15 @@ export const useTVFetch = tvId => {
             }
         }
 
-        const sessionState = isPersistedState("tv-" + tvId)
-        if (sessionState) {
-            setState(sessionState)
-            setLoading(false)
-            return
+        try {
+            const sessionState = isPersistedState("tv-" + tvId)
+            if (sessionState) {
+                setState(sessionState)
+                setLoading(false)
+                return
+            }
+        } catch (error) {
+          sessionStorage.clear();
         }
         fetchTV()
     }, [tvId])

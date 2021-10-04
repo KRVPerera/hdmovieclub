@@ -4,8 +4,6 @@ import API from "../API";
 // helpers
 import {isPersistedState} from "../helpers"
 import {Context} from "../Store";
-// import useWindowDimensions from "../components/utils";
-// import {number} from "prop-types";
 
 const initialState = {
     page: 0,
@@ -45,14 +43,12 @@ export const useTrendFetch = () => {
 
             } else {
                 tvs = await API.fetchHdMovieClubShows(1)
-                setState(prevState => ({
+                setState(({
                     ...tvs,
                     results: [...tvs.results]
                 }))
                 setTvCount(tvs.total_results)
             }
-
-
         } catch (error) {
             setError(true)
         }
@@ -60,15 +56,19 @@ export const useTrendFetch = () => {
     }
 
     useEffect(() => {
-        fetchTrendingTvs(1);
+        fetchTrendingTvs(1, gState.clubOnState);
     }, [gState.clubOnState])
 
     // initial render
     useEffect(() => {
-        const sessionState = isPersistedState(storageKey)
-        if (sessionState) {
-            setState(sessionState)
-            return
+        try {
+            const sessionState = isPersistedState(storageKey)
+            if (sessionState) {
+                setState(sessionState)
+                return
+            }
+        } catch (error) {
+            sessionStorage.clear();
         }
 
         setState(initialState)
