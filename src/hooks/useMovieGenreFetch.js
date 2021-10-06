@@ -2,7 +2,7 @@ import {useState, useEffect} from "react"
 import API from "../API"
 
 // Helpers
-import {isPersistedState} from "../helpers";
+import {isPersistedStateInLocal} from "../helpers";
 
 const storageKey = "movieGenres"
 
@@ -28,9 +28,14 @@ export const useMovieGenreFetch = () => {
     }
 
     useEffect(() => {
-        const sessionState = isPersistedState(storageKey)
-        if (sessionState) {
-            setState(sessionState)
+        const itemStr = isPersistedStateInLocal(storageKey)
+        if (itemStr) {
+            const now = new Date()
+            if (now.getTime() > itemStr.expiry) {
+                sessionStorage.removeItem(storageKey)
+                return
+            }
+            setState(itemStr.value)
             return
         }
         fetchMovieGenres()
@@ -38,7 +43,14 @@ export const useMovieGenreFetch = () => {
 
     // write to session storage
     useEffect(() => {
-        sessionStorage.setItem(storageKey, JSON.stringify(state))
+        const now = new Date()
+
+        // 10 minute expire
+        const item = {
+            value: state,
+            expiry: now.getTime() + 600000,
+        }
+        localStorage.setItem(storageKey, JSON.stringify(item))
     }, [state])
 
     return {state, error}

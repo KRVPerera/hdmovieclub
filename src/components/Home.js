@@ -73,7 +73,7 @@ const Home = () => {
                             color="primary"
                             avatar={<Avatar>R</Avatar>}
                         />
-                        {!gState.clubOnState && !error2 && movie.genre_ids && movie.genre_ids.filter((value, index, a) =>
+                        {!error2 && movie.genre_ids && movie.genre_ids.filter((value, index, a) =>
                             a.indexOf(value) === index
                         ).sort().map((genre) => (
                             <Chip

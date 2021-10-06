@@ -2,7 +2,7 @@ import {useContext, useEffect, useState} from "react"
 import API from "../API";
 
 // helpers
-import {isPersistedState} from "../helpers"
+import {isPersistedState, isPersistedStateInLocal} from "../helpers"
 import {Context} from "../Store";
 
 const initialState = {
@@ -13,6 +13,7 @@ const initialState = {
 }
 
 const storageKey = "homeState"
+const storageKeyHDMovieClub = "hdMovieClubInfo"
 
 export const useHomeFetch = () => {
     const [gState] = useContext(Context)
@@ -53,7 +54,27 @@ export const useHomeFetch = () => {
     // initial render and search
     useEffect(() => {
         if (!searchTerm) {
-            const sessionState = isPersistedState(storageKey)
+
+            let itemStr;
+            if (!gState.clubOnState) {
+                itemStr = isPersistedState(storageKey)
+            } else {
+                itemStr = isPersistedStateInLocal(storageKeyHDMovieClub)
+            }
+            if (!itemStr) {
+                return
+            }
+            // const item = JSON.parse(itemStr)
+            const now = new Date()
+            if (now.getTime() > itemStr.expiry) {
+                if (!gState.clubOnState) {
+                    sessionStorage.removeItem(storageKey)
+                } else {
+                    localStorage.removeItem(storageKeyHDMovieClub)
+                }
+                return
+            }
+            const sessionState = itemStr.value
             if (sessionState) {
                 setState(sessionState)
                 return
@@ -78,10 +99,24 @@ export const useHomeFetch = () => {
         fetchMovies(1, searchTerm, gState.clubOnState);
     }, [gState.clubOnState, searchTerm])
 
-    // write to sessionStorage
     useEffect(() => {
-        if (!searchTerm) sessionStorage.setItem(storageKey, JSON.stringify(state))
-    }, [searchTerm, state])
+        if (!searchTerm)  {
+            if (!state) {
+                return
+            }
+            const now = new Date()
+
+            const item = {
+                value: state,
+                expiry: now.getTime() + 180000,
+            }
+            if (!gState.clubOnState) {
+                sessionStorage.setItem(storageKey, JSON.stringify(item))
+            } else {
+                localStorage.setItem(storageKeyHDMovieClub, JSON.stringify(item))
+            }
+        }
+    }, [searchTerm, state, gState.clubOnState])
 
     return {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore, movieCount}
 }
