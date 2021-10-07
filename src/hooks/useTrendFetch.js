@@ -2,8 +2,9 @@ import {useContext, useEffect, useState} from "react"
 import API from "../API";
 
 // helpers
-import {isPersistedState} from "../helpers"
+import {isPersistedState, isPersistedStateInLocal} from "../helpers"
 import {Context} from "../Store";
+import {getExpiryTime} from "../utils/utils"
 
 const initialState = {
     page: 0,
@@ -13,6 +14,7 @@ const initialState = {
 }
 
 const storageKey = "trendingMoviesState"
+const storageHDMovieClubKey = "hdMovieClubTrendFetch"
 
 export const useTrendFetch = () => {
     const [gState] = useContext(Context)
@@ -62,13 +64,29 @@ export const useTrendFetch = () => {
     // initial render
     useEffect(() => {
         try {
-            const sessionState = isPersistedState(storageKey)
-            if (sessionState) {
-                setState(sessionState)
-                return
+            let itemStr;
+            if (!gState.clubOnState) {
+                itemStr = isPersistedState(storageKey)
+            } else {
+                itemStr = isPersistedStateInLocal(storageHDMovieClubKey)
+            }
+            if (itemStr) {
+                const now = new Date()
+                if (now.getTime() > itemStr.expiry) {
+                    if (!gState.clubOnState) {
+                        sessionStorage.removeItem(storageKey)
+                    } else {
+                        localStorage.removeItem(storageHDMovieClubKey)
+                    }
+                } else {
+                    const sessionState = itemStr.value
+                    setState(sessionState)
+                    return
+                }
             }
         } catch (error) {
-            sessionStorage.clear();
+            sessionStorage.removeItem(storageKey);
+            localStorage.removeItem(storageHDMovieClubKey);
         }
 
         setState(initialState)
@@ -89,12 +107,20 @@ export const useTrendFetch = () => {
     // write to sessionStorage
     useEffect(() => {
         try {
-            sessionStorage.setItem(storageKey, JSON.stringify(state))
+            const item = {
+                value: state,
+                expiry: getExpiryTime(gState.clubOnState, 30),
+            }
+            if (!gState.clubOnState) {
+                sessionStorage.setItem(storageKey, JSON.stringify(item))
+            } else {
+                localStorage.setItem(storageHDMovieClubKey, JSON.stringify(item))
+            }
         } catch (error) {
-            // setError(true)
-            sessionStorage.clear();
+            sessionStorage.removeItem(storageKey);
+            localStorage.removeItem(storageHDMovieClubKey);
         }
-    }, [state])
+    }, [state, gState.clubOnState])
 
     return {state, loading, error, setIsLoadingMore, loadWidth, scrollRight, setScrollRight, tvCount}
 }

@@ -4,6 +4,7 @@ import API from "../API";
 // helpers
 import {isPersistedState, isPersistedStateInLocal} from "../helpers"
 import {Context} from "../Store";
+import {getExpiryTime} from "../utils/utils"
 
 const initialState = {
     page: 0,
@@ -104,11 +105,9 @@ export const useHomeFetch = () => {
             if (!state) {
                 return
             }
-            const now = new Date()
-
             const item = {
                 value: state,
-                expiry: now.getTime() + 180000,
+                expiry: getExpiryTime(gState.clubOnState, 30),
             }
             if (!gState.clubOnState) {
                 sessionStorage.setItem(storageKey, JSON.stringify(item))
