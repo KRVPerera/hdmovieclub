@@ -30,12 +30,7 @@ export const useMovieGenreFetch = () => {
     useEffect(() => {
         const itemStr = isPersistedStateInLocal(storageKey)
         if (itemStr) {
-            const now = new Date()
-            if (now.getTime() > itemStr.expiry) {
-                sessionStorage.removeItem(storageKey)
-                return
-            }
-            setState(itemStr.value)
+            setState(itemStr)
             return
         }
         fetchMovieGenres()
@@ -43,14 +38,7 @@ export const useMovieGenreFetch = () => {
 
     // write to session storage
     useEffect(() => {
-        const now = new Date()
-
-        // 10 minute expire
-        const item = {
-            value: state,
-            expiry: now.getTime() + 600000,
-        }
-        localStorage.setItem(storageKey, JSON.stringify(item))
+        localStorage.setItem(storageKey, JSON.stringify(state))
     }, [state])
 
     return {state, error}

@@ -13,7 +13,8 @@ const REQUEST_TOKEN_URL = `${API_URL}authentication/token/new?api_key=${API_KEY}
 const LOGIN_URL = `${API_URL}authentication/token/validate_with_login?api_key=${API_KEY}`;
 const SESSION_ID_URL = `${API_URL}authentication/session/new?api_key=${API_KEY}`;
 
-const SEARCH_LIST_URL = `${API_URL_V4}list/7104814?api_key=${API_KEY}&language=en-US`;
+// const SEARCH_LIST_URL = `${API_URL_V4}list/7104814?api_key=${API_KEY}&language=en-US`;
+const SEARCH_LIST_URL = `/.netlify/functions/get-hdmovie-club-movies?`;
 const SEARCH_LIST_TV_URL = `${API_URL_V4}list/7110171?api_key=${API_KEY}&language=en-US`;
 
 const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
