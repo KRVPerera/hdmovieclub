@@ -2,15 +2,21 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   background: linear-gradient(to bottom,
-  rgba(0, 0, 0, 0) 41%,
+  rgba(0, 0, 0, 0) 31%,
   rgba(0, 0, 0, 0.65) 100%),
   url(${({image}) => image}), var(--darkGrey);
   display: block;
-  background-size: 100%, cover;
+  background-size: 100%, contain;
   background-position: center;
   height: 500px;
   position: relative;
-  animation: animateHeroImage 1s;
+  animation: animateHeroImage 1.5s;
+
+  @media screen and (max-width: 450px) {
+    background-repeat: no-repeat;
+    background-size: 100%, cover;
+    height: 300px;
+  }
 
   @keyframes animateHeroImage {
     from {
