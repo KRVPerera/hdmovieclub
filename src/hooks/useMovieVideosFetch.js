@@ -2,7 +2,7 @@ import {useState, useEffect} from "react"
 import API from "../API"
 
 // Helpers
-import {isPersistedStateInLocal} from "../helpers";
+import {isPersistedState} from "../helpers";
 
 export const useMovieVideosFetch = movieId => {
     const [movieVideos, setMovieVideos] = useState({})
@@ -16,6 +16,7 @@ export const useMovieVideosFetch = movieId => {
                 setErrorVideos(false)
 
                 const videos = await API.fetchMovieVideos(movieId)
+                // videos.results = videos.results.filter(data => data.site === 'YouTube' && (data.type === 'Trailer' || data.type === 'Teaser'))
                 videos.results = videos.results.filter(data => data.site === 'YouTube' && data.type === 'Trailer')
                 setMovieVideos(videos.results)
                 setLoadingVideos(false)
@@ -26,11 +27,9 @@ export const useMovieVideosFetch = movieId => {
         }
 
         try {
-            // const videos = isPersistedState("movieVideos-" + movieId)
-            const videos = isPersistedStateInLocal("movieVideos-" + movieId)
+            const videos = isPersistedState("movieVideos-" + movieId)
             if (videos) {
                 setMovieVideos(videos)
-                console.log(videos)
                 setLoadingVideos(false)
                 return
             }
@@ -42,8 +41,7 @@ export const useMovieVideosFetch = movieId => {
 
     // write to session storage
     useEffect(() => {
-        localStorage.setItem("movieVideos-" + movieId, JSON.stringify(movieVideos))
-        // sessionStorage.setItem("movieVideos-" + movieId, JSON.stringify(movieVideos))
+        sessionStorage.setItem("movieVideos-" + movieId, JSON.stringify(movieVideos))
     }, [movieId, movieVideos])
 
     return {movieVideos, loadingVideos, errorVideos}
