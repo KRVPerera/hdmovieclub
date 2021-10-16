@@ -42,7 +42,7 @@ const CarouselVideo = ({movieVideos, loadingVideos, errorVideos}) => {
     return (
         <Wrapper>
             <Content>
-                <Grid lg={7} md={7} justifyContent={true} justify={true}>
+                <Grid lg={8} md={8} sm={8} justifyContent={true} justify={true} item={true}>
                     <Carousel
                         autoPlay={false}
                         className={classes.carousel}
