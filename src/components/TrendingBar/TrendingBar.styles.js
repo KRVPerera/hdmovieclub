@@ -8,10 +8,12 @@ export const Wrapper = styled.div`
   max-width: 100%;
   margin: 0;
   padding: 0;
+  
 `;
 
 export const Content = styled.div`
   margin: 0;
+  //background-color: #61dafb;
   background-color: var(--clr-600);
 
   .TrendBarFab {
@@ -30,6 +32,7 @@ export const Content = styled.div`
 export const SlideBar = styled.div`
   overflow: scroll;
   scroll-behavior: smooth;
+  //background-color: #61dafb;
   display: flex;
 `;
 

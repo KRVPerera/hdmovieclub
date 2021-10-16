@@ -8,7 +8,9 @@ import {
     GET_TRENDING_MOVIE_URL,
     GET_TRENDING_TV_URL,
     SEARCH_LIST_URL,
-    SEARCH_LIST_TV_URL
+    SEARCH_LIST_TV_URL,
+    GET_MOVIE,
+    GET_MOVIE_VIDEOS
 } from './config';
 
 const defaultConfig = {
@@ -42,11 +44,11 @@ const apiSettings = {
         return await (await fetch(endpoint)).json();
     },
     fetchMovie: async movieId => {
-        const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
+        const endpoint = `${GET_MOVIE}&movieId=${movieId}`;
         return await (await fetch(endpoint)).json();
     },
     fetchMovieVideos: async movieId => {
-        const endpoint = `${API_URL}movie/${movieId}/videos?api_key=${API_KEY}`;
+        const endpoint = `${GET_MOVIE_VIDEOS}&movieId=${movieId}`;
         return await (await fetch(endpoint)).json();
     },
     fetchPerson: async person_id => {

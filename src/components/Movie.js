@@ -12,17 +12,20 @@ import BreadCrumb from './BreadCrumb'
 import MovieInfo from "./MovieInfo"
 import MovieInfoBar from "./MovieInfoBar";
 import Actor from "./Actor"
+import MetaDecorator from "./utils/MetaDecorator";
+import CarouselVideo from "./Videos/CarouselVideo";
 
 // Hook
 import {useMovieFetch} from "../hooks/useMovieFetch";
+import {useMovieVideosFetch} from "../hooks/useMovieVideosFetch";
 
 // Image
 import NoImage from '../images/no_image.jpg'
-import MetaDecorator from "./utils/MetaDecorator";
 
 const Movie = () => {
     const {movieId} = useParams()
     const {state: movie, loading, error} = useMovieFetch(movieId)
+    const {movieVideos, loadingVideos, errorVideos} = useMovieVideosFetch(movieId)
 
     if (loading) return <Spinner/>
     if (error) return <div>Something went wrong...</div>
@@ -52,6 +55,7 @@ const Movie = () => {
                 budget={movie.budget}
                 revenue={movie.revenue}
             />
+            {movieVideos && <CarouselVideo movieVideos={movieVideos} loadingVideos={loadingVideos} errorVideos={errorVideos}/>}
             <Grid header='Actors'>
                 {movie.actors && movie.actors.map(actor => (
                     <Actor

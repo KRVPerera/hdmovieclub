@@ -15,6 +15,8 @@ const SESSION_ID_URL = `${API_URL}authentication/session/new?api_key=${API_KEY}`
 
 // const SEARCH_LIST_URL = `${API_URL_V4}list/7104814?api_key=${API_KEY}&language=en-US`;
 const SEARCH_LIST_URL = `/.netlify/functions/get-hdmovie-club-movies?`;
+const GET_MOVIE = `/.netlify/functions/get-movie?`;
+const GET_MOVIE_VIDEOS = `/.netlify/functions/get-movie-videos?`;
 const SEARCH_LIST_TV_URL = `${API_URL_V4}list/7110171?api_key=${API_KEY}&language=en-US`;
 
 const IMAGE_BASE_URL = 'http://image.tmdb.org/t/p/';
@@ -43,5 +45,7 @@ export {
   GET_TRENDING_TV_URL,
   SEARCH_LIST_URL,
   SHARE_SIZE,
-  SEARCH_LIST_TV_URL
+  SEARCH_LIST_TV_URL,
+  GET_MOVIE,
+  GET_MOVIE_VIDEOS
 };
