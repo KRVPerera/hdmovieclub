@@ -16,7 +16,8 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 #### TODOs
-- [ ] move `onClubState` to a context
+- [x] move `onClubState` to a context
 - [ ] make og:tags work
-  - [ ] check netlify edge handlers
-- [ ] create serverless function to search `HD Movie Club` movies
+  - [ ] check netlify edge handlers (still early access), Vercel already have
+- [x] create serverless function to search `HD Movie Club` movies
+- [ ] add search functionality to `HD Movie Club` movies
