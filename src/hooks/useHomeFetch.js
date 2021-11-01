@@ -110,7 +110,7 @@ export const useHomeFetch = () => {
             localStorage.setItem(storageKeyHDMovieClubAllMovies, JSON.stringify(item))
         } )
 
-    }, [searchTerm, gState.clubOnState])
+    }, [searchTerm, state, gState.clubOnState])
 
     useEffect(() => {
         if (!searchTerm) {

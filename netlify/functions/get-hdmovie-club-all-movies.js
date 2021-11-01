@@ -15,7 +15,7 @@ exports.handler = async function (event, context) {
 
     results.push(...data.results)
     let count = parseInt(data.total_pages)
-    for (let i = 1; i < count; i++) {
+    for (let i = 2; i < count; i++) {
         const res = await fetch(`${SEARCH_LIST_URL}&page=${i}`);
         const data = await res.json();
         results.push(...data.results)
