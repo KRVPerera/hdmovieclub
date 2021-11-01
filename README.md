@@ -19,7 +19,11 @@ You will also see any lint errors in the console.
 - [x] move `onClubState` to a context
 - [ ] make og:tags work
   - [ ] check netlify edge handlers (still early access), Vercel already have
+  - [ ] Next.js ??
 - [x] create serverless function to search `HD Movie Club` movies
-- [ ] add search functionality to `HD Movie Club` movies
+- [x] add search functionality to `HD Movie Club` movies
   - [x] fetch on first page
-  - [ ] Fetch over multiple pages
+  - [x] Fetch over multiple pages
+- [ ] Add filtering support
+  - [ ] filter by genre
+  - [ ] filter by tags

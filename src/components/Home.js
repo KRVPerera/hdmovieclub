@@ -35,6 +35,12 @@ const Home = () => {
     if (error) {
         return <div>Something went wrong...</div>
     }
+
+    const handleChipClick = function (event, id) {
+        console.log(event)
+        console.log(id)
+    }
+
     return (
         <>
             {!searchTerm && state.results[0] &&
@@ -82,6 +88,8 @@ const Home = () => {
                                 color="primary"
                                 className="chip"
                                 size="small"
+                                clickable={true}
+                                onClick={(e) => handleChipClick(e, genre.id) }
                             />
                         ))}
 
