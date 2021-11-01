@@ -21,3 +21,5 @@ You will also see any lint errors in the console.
   - [ ] check netlify edge handlers (still early access), Vercel already have
 - [x] create serverless function to search `HD Movie Club` movies
 - [ ] add search functionality to `HD Movie Club` movies
+  - [x] fetch on first page
+  - [ ] Fetch over multiple pages

@@ -10,7 +10,8 @@ import {
     SEARCH_LIST_URL,
     SEARCH_LIST_TV_URL,
     GET_MOVIE,
-    GET_MOVIE_VIDEOS
+    GET_MOVIE_VIDEOS,
+    FIND_SEARCH_LIST_URL
 } from './config';
 
 const defaultConfig = {
@@ -28,8 +29,13 @@ const apiSettings = {
         return data;
     },
     fetchHdMovieClubMovies: async (searchTerm, page) => {
-        const endpoint = `${SEARCH_LIST_URL}&page=${page}`;
-        return await (await fetch(endpoint)).json();
+        if (searchTerm === "") {
+            const endpoint = `${SEARCH_LIST_URL}&page=${page}`;
+            return await (await fetch(endpoint)).json();
+        } else {
+            const endpoint = `${FIND_SEARCH_LIST_URL}&page=${page}&term=${searchTerm}`;
+            return await (await fetch(endpoint)).json();
+        }
     },
     fetchHdMovieClubShows: async (page) => {
         const endpoint = `${SEARCH_LIST_TV_URL}&page=${page}`;

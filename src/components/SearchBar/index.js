@@ -26,7 +26,6 @@ const SearchBar = ({setSearchTerm}) => {
 
     return (
         <Wrapper>
-            {!gState.clubOnState &&
                 <Content>
                     <img src={searchIcon} alt='searchIcon'/>
                     <input type='text' placeholder='Search Movie'
@@ -34,7 +33,6 @@ const SearchBar = ({setSearchTerm}) => {
                            value={state}
                     />
                 </Content>
-            }
         </Wrapper>
     )
 }
