@@ -37,6 +37,10 @@ const apiSettings = {
             return await (await fetch(endpoint)).json();
         }
     },
+    fetchHdMovieClubAllMovies: async () => {
+        const endpoint = `${FIND_SEARCH_LIST_URL}`;
+        return await (await fetch(endpoint)).json();
+    },
     fetchHdMovieClubShows: async (page) => {
         const endpoint = `${SEARCH_LIST_TV_URL}&page=${page}`;
         return await (await fetch(endpoint)).json();

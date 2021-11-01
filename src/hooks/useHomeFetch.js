@@ -15,6 +15,8 @@ const initialState = {
 
 const storageKey = "homeState"
 const storageKeyHDMovieClub = "hdMovieClubInfo"
+const storageKeyHDMovieClubAllMovies = "hdMovieClubInfoAllMovies"
+
 
 export const useHomeFetch = () => {
     const [gState] = useContext(Context)
@@ -24,6 +26,7 @@ export const useHomeFetch = () => {
     const [error, setError] = useState(false)
     const [isLoadingMore, setIsLoadingMore] = useState(false)
     const [movieCount, setMovieCount] = useState(0)
+    const [allHDClubMovie, setAllHDClubMovie] = useState()
 
     const fetchMovies = async (page, searchTerm = "", clubOnState) => {
 
@@ -33,26 +36,82 @@ export const useHomeFetch = () => {
             let movies;
             if (!clubOnState) {
                 movies = await API.fetchMovies(searchTerm, page)
+                setState(prevState => ({
+                    ...movies,
+                    results:
+                        page > 1 ? [...prevState.results, ...movies.results] : [...movies.results]
+                }))
             } else {
-                movies = await API.fetchHdMovieClubMovies(searchTerm, page)
-                setMovieCount(movies.total_results)
-            }
 
-            // movies.results.sort((a,b) =>{
-            //     return b.release_date - a.release_date;
-            // } )
-            setState(prevState => ({
-                ...movies,
-                results:
-                    page > 1 ? [...prevState.results, ...movies.results] : [...movies.results]
-            }))
+                if (searchTerm === "") {
+                    movies = await API.fetchHdMovieClubMovies(searchTerm, page)
+                    console.log(movies)
+
+                    setMovieCount(movies.total_results)
+                    setState(prevState => ({
+                        ...movies,
+                        results:
+                            page > 1 ? [...prevState.results, ...movies.results] : [...movies.results]
+                    }))
+                } else {
+                    let movies = Object.assign({}, allHDClubMovie);
+                    const newList = movies.results.filter(movie => movie.title && movie.title.toUpperCase().includes(searchTerm.toUpperCase()))
+                    movies.results = newList
+                    setMovieCount(movies.total_results)
+                    console.log("######## @#$#@$#@")
+                    console.log(movies)
+                    console.log("######## @#newList#@$#@")
+                    console.log(newList)
+                    console.log("######## @#allHDClubMovie#@$#@")
+                    console.log(allHDClubMovie)
+                    console.log("######## @#$#@$#@")
+                    setState(prevState => ({
+                        ...movies,
+                        results: [...movies.results]
+                    }))
+                }
+            }
         } catch (error) {
             setError(true)
         }
         setLoading(false)
     }
 
+    const fetchAllHDMovieClubMovies = async () => {
+        const movies = await API.fetchHdMovieClubAllMovies()
+        setAllHDClubMovie(movies)
+        return movies
+    }
+
     // initial render and search
+
+    useEffect(() => {
+        if (!gState.clubOnState) {
+            return
+        }
+        const itemStr = isPersistedStateInLocal(storageKeyHDMovieClubAllMovies)
+        if (itemStr) {
+            const now = new Date()
+            if (now.getTime() > itemStr.expiry) {
+                localStorage.removeItem(storageKeyHDMovieClubAllMovies)
+            }
+            const sessionState = itemStr.value
+            if (sessionState) {
+                setAllHDClubMovie(sessionState)
+                return;
+            }
+        }
+
+        fetchAllHDMovieClubMovies().then(movies => {
+            const item = {
+                value: movies,
+                expiry: getExpiryTime(gState.clubOnState, 30),
+            }
+            localStorage.setItem(storageKeyHDMovieClubAllMovies, JSON.stringify(item))
+        } )
+
+    }, [searchTerm, gState.clubOnState])
+
     useEffect(() => {
         if (!searchTerm) {
 
@@ -81,7 +140,6 @@ export const useHomeFetch = () => {
                 return
             }
         }
-
         setState(initialState)
         fetchMovies(1, searchTerm, gState.clubOnState)
     }, [searchTerm, gState.clubOnState])
@@ -101,7 +159,7 @@ export const useHomeFetch = () => {
     }, [gState.clubOnState, searchTerm])
 
     useEffect(() => {
-        if (!searchTerm)  {
+        if (!searchTerm) {
             if (!state) {
                 return
             }

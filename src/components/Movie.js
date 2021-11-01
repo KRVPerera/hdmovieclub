@@ -29,7 +29,7 @@ const Movie = () => {
 
     if (loading) return <Spinner/>
     if (error) return <div>Something went wrong...</div>
-    if (!movie.title || !movie.actors) {
+    if (error || !movie.title || !movie.actors) {
         sessionStorage.removeItem("movie-" + movieId);
         sessionStorage.clear();
         return (

@@ -1,15 +1,13 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types'
 
 // Image
 import searchIcon from '../../images/search-icon.svg'
 // Styles
 import {Wrapper, Content} from './SearchBar.styles'
-import {Context} from "../../Store";
 
 
 const SearchBar = ({setSearchTerm}) => {
-    const [gState] = useContext(Context)
     const [state, setState] = useState('');
     const initial = useRef(true);
 
