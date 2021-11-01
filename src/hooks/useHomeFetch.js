@@ -27,12 +27,13 @@ export const useHomeFetch = () => {
     const [isLoadingMore, setIsLoadingMore] = useState(false)
     const [movieCount, setMovieCount] = useState(0)
     const [allHDClubMovie, setAllHDClubMovie] = useState()
+    // const [currentPage, setCurrentPage] = useState()
 
-    const fetchMovies = async (page, searchTerm = "", clubOnState) => {
-
+    const fetchMovies = async (page, searchTerm, clubOnState, allHDClubMovie) => {
         try {
             setError(false)
             setLoading(true)
+            // setCurrentPage(page)
             let movies;
             if (!clubOnState) {
                 movies = await API.fetchMovies(searchTerm, page)
@@ -47,29 +48,20 @@ export const useHomeFetch = () => {
                     movies = await API.fetchHdMovieClubMovies(searchTerm, page)
                     console.log(movies)
 
-                    setMovieCount(movies.total_results)
+
                     setState(prevState => ({
                         ...movies,
                         results:
                             page > 1 ? [...prevState.results, ...movies.results] : [...movies.results]
                     }))
                 } else {
-                    let movies = Object.assign({}, allHDClubMovie);
+                    movies = Object.assign({}, allHDClubMovie);
                     const newList = movies.results.filter(movie => movie.title && movie.title.toUpperCase().includes(searchTerm.toUpperCase()))
                     movies.results = newList
-                    setMovieCount(movies.total_results)
-                    console.log("######## @#$#@$#@")
-                    console.log(movies)
-                    console.log("######## @#newList#@$#@")
-                    console.log(newList)
-                    console.log("######## @#allHDClubMovie#@$#@")
-                    console.log(allHDClubMovie)
-                    console.log("######## @#$#@$#@")
-                    setState(prevState => ({
-                        ...movies,
-                        results: [...movies.results]
-                    }))
+                    setState(movies)
                 }
+
+                setMovieCount(movies.total_results)
             }
         } catch (error) {
             setError(true)
@@ -110,7 +102,7 @@ export const useHomeFetch = () => {
             localStorage.setItem(storageKeyHDMovieClubAllMovies, JSON.stringify(item))
         } )
 
-    }, [searchTerm, state, gState.clubOnState])
+    }, [searchTerm, gState.clubOnState])
 
     useEffect(() => {
         if (!searchTerm) {
@@ -141,22 +133,28 @@ export const useHomeFetch = () => {
             }
         }
         setState(initialState)
-        fetchMovies(1, searchTerm, gState.clubOnState)
-    }, [searchTerm, gState.clubOnState])
+        fetchMovies(1, searchTerm, gState.clubOnState, allHDClubMovie);
+    }, [searchTerm, gState.clubOnState, allHDClubMovie])
 
+    // const fetchMovies = useCallback(
+    //     (page, searchTerm, gState.clubOnState) => {
+    //         fetchMovies(page, searchTerm, gState.clubOnState);
+    //     },
+    //     [page, searchTerm, gState.clubOnState],
+    // );
     // load more
     useEffect(() => {
         if (!isLoadingMore) return;
 
-        fetchMovies(state.page + 1, searchTerm, gState.clubOnState);
+        fetchMovies(state.page + 1, searchTerm, gState.clubOnState, allHDClubMovie);
         setIsLoadingMore(false);
 
-    }, [isLoadingMore, searchTerm, state.page, gState.clubOnState])
+    }, [isLoadingMore, searchTerm, state.page, gState.clubOnState, allHDClubMovie])
 
 
     useEffect(() => {
-        fetchMovies(1, searchTerm, gState.clubOnState);
-    }, [gState.clubOnState, searchTerm])
+        fetchMovies(1, searchTerm, gState.clubOnState, allHDClubMovie);
+    }, [gState.clubOnState, searchTerm, allHDClubMovie])
 
     useEffect(() => {
         if (!searchTerm) {
