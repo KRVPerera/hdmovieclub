@@ -3,7 +3,7 @@ import {Form, Button, Card, Alert, Container} from "react-bootstrap"
 // import { useAuth } from "../contexts/AuthContext"
 // import { Link, useHistory } from "react-router-dom"
 import {Link} from 'react-router-dom'
-import {InnerWrapper, Wrapper} from "./Signup.styles";
+import {Content, InnerWrapper, Wrapper, StyledCard} from "./Signup.styles";
 
 export default function Signup() {
     const emailRef = useRef()
@@ -35,9 +35,9 @@ export default function Signup() {
     }
 
     return (
-        <Wrapper className="d-flex align-items-center justify-content-center" style={{minHeight: "100vh"}}>
-            <InnerWrapper className="w-100" style={{maxWidth: "600px"}}>
-                <Card>
+        <Wrapper>
+            <Content>
+                <StyledCard className="signupCard">
                     <Card.Body>
                         <h2 className="text-center mb-4">Sign Up to HD Movie Club</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
@@ -63,11 +63,11 @@ export default function Signup() {
                             </Button>
                         </Form>
                     </Card.Body>
-                </Card>
+                </StyledCard>
                 <div className="w-100 text-center mt-lg-2">
                     Already have an account? <Link to="/login">Log In</Link>
                 </div>
-            </InnerWrapper>
+            </Content>
         </Wrapper>
     )
 }
