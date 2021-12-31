@@ -8,6 +8,8 @@ export const useMovieFetch = movieId => {
     const [state, setState] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    const [searchTerm, setSearchTerm] = useState("")
+    const [actorList, setActorList] = useState({})
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -40,6 +42,7 @@ export const useMovieFetch = movieId => {
             const sessionState = isPersistedState("movie-" + movieId)
             if (sessionState) {
                 setState(sessionState)
+                setActorList(sessionState.actors)
                 setLoading(false)
                 return
             }
@@ -49,10 +52,23 @@ export const useMovieFetch = movieId => {
         fetchMovie()
     }, [movieId])
 
+    useEffect(() => {
+        if (!state || !state.actors) {
+            return
+        }
+        if (searchTerm === "") {
+            setActorList(state.actors)
+        } else {
+            setActorList(state.actors.filter(
+                actor => actor.name.toUpperCase().includes(searchTerm.toUpperCase())
+            ))
+        }
+    }, [searchTerm, state])
+
     // write to session storage
     useEffect(() => {
         sessionStorage.setItem("movie-" + movieId, JSON.stringify(state))
     }, [movieId, state])
 
-    return {state, loading, error}
+    return {state, loading, error, setSearchTerm, actorList}
 }

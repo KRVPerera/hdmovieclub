@@ -21,10 +21,11 @@ import {useMovieVideosFetch} from "../hooks/useMovieVideosFetch";
 
 // Image
 import NoImage from '../images/no_image.jpg'
+import SearchBar from "./SearchBar";
 
 const Movie = () => {
     const {movieId} = useParams()
-    const {state: movie, loading, error} = useMovieFetch(movieId)
+    const {state: movie, loading, error, setSearchTerm, actorList} = useMovieFetch(movieId)
     const {movieVideos, loadingVideos, errorVideos} = useMovieVideosFetch(movieId)
 
     if (loading) return <Spinner/>
@@ -55,9 +56,10 @@ const Movie = () => {
                 budget={movie.budget}
                 revenue={movie.revenue}
             />
-            {movieVideos && <CarouselVideo movieVideos={movieVideos} loadingVideos={loadingVideos} errorVideos={errorVideos}/>}
+            {movieVideos && <CarouselVideo movieVideos={movieVideos} loadingVideos={loadingVideos} errorVideos={errorVideos}/>}\
+            <SearchBar placeholderText="Search actor" setSearchTerm={setSearchTerm} />
             <Grid header='Actors'>
-                {movie.actors && movie.actors.map(actor => (
+                {actorList && actorList.map(actor => (
                     <Actor
                         key={actor.id}
                         actor={actor}
