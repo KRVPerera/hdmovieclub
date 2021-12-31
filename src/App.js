@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 // Components
 import Header from './components/Header'
+import Footer from "./components/Footer"
 import Home from './components/Home'
 import Movie from "./components/Movie"
 import TV from "./components/TV"
@@ -29,6 +30,7 @@ const App = () => {
                     <Route path="/Signup" element={<Signup/>}/>
                     <Route path="/*" element={<NotFound/>}/>
                 </Routes>
+                <Footer className="text-center"/>
                 <GlobalStyle/>
             </Router>
         </Store>
