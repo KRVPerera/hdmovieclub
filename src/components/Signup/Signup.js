@@ -1,9 +1,9 @@
 import React, {useRef, useState} from "react"
-import {Form, Button, Card, Alert, Container} from "react-bootstrap"
+import {Form, Button, Card, Alert} from "react-bootstrap"
 // import { useAuth } from "../contexts/AuthContext"
 // import { Link, useHistory } from "react-router-dom"
 import {Link} from 'react-router-dom'
-import {Content, InnerWrapper, Wrapper, StyledCard} from "./Signup.styles";
+import {Content, Wrapper, StyledCard} from "./Signup.styles";
 
 // code is copied from https://github.com/WebDevSimplified/React-Firebase-Auth
 
@@ -24,14 +24,15 @@ export default function Signup() {
         //     return setError("Passwords do not match")
         // }
         //
-        // try {
-        //     setError("")
-        //     setLoading(true)
-        //     await signup(emailRef.current.value, passwordRef.current.value)
-        //     history.push("/")
-        // } catch {
-        //     setError("Failed to create an account")
-        // }
+        try {
+            // setError("")
+            // setLoading(true)
+            // await signup(emailRef.current.value, passwordRef.current.value)
+            // history.push("/")
+        } catch {
+            setError("Failed to create an account")
+        }
+
 
         setLoading(false)
     }

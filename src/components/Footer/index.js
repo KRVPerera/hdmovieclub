@@ -1,6 +1,5 @@
+import React from "react";
 import {Wrapper, Content} from "./Footer.styles"
-import React, {useContext} from "react";
-import {Context} from "../../Store";
 
 const Footer = () => {
     return (
