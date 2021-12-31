@@ -8,6 +8,8 @@ export const useTVFetch = tvId => {
     const [state, setState] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    const [searchTerm, setSearchTerm] = useState("")
+    const [actorList, setActorList] = useState({})
 
     useEffect(() => {
         const fetchTV = async () => {
@@ -40,6 +42,7 @@ export const useTVFetch = tvId => {
             const sessionState = isPersistedState("tv-" + tvId)
             if (sessionState) {
                 setState(sessionState)
+                setActorList(sessionState.actors)
                 setLoading(false)
                 return
             }
@@ -54,5 +57,20 @@ export const useTVFetch = tvId => {
         sessionStorage.setItem("tv-" + tvId, JSON.stringify(state))
     }, [tvId, state])
 
-    return {state, loading, error}
+    const checkName = (actor) => {
+        return actor.name.toUpperCase().includes(searchTerm.toUpperCase());
+    }
+
+    useEffect(() => {
+        if (!state || !state.actors) {
+            return
+        }
+        if (searchTerm === "") {
+            setActorList(state.actors)
+        } else {
+            setActorList(state.actors.filter(checkName))
+        }
+    }, [searchTerm, state])
+
+    return {state, loading, error, setSearchTerm, actorList}
 }

@@ -43,7 +43,7 @@ const Home = () => {
             />
             }
             {!searchTerm && <TrendingBar />}
-            <SearchBar setSearchTerm={setSearchTerm}/>
+            <SearchBar setSearchTerm={setSearchTerm} placeholderText="Search Movies"/>
             <Grid
                 header={searchTerm ? 'Search Result' : gState.clubOnState ? `HD Movie Club Movies : ${movieCount}` : 'Popular movies'}>
                 {state.results.map((movie) => (

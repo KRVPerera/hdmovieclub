@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 
 // Config
@@ -17,10 +17,11 @@ import {useTVFetch} from "../hooks/useTVFetch";
 // Image
 import NoImage from '../images/no_image.jpg'
 import MetaDecorator from "./utils/MetaDecorator";
+import SearchBar from "./SearchBar";
 
 const TV = () => {
     const {tvId} = useParams()
-    const {state: tv, loading, error} = useTVFetch(tvId)
+    const {state: tv, loading, error, setSearchTerm, actorList} = useTVFetch(tvId)
 
     if (loading) return <Spinner/>
     if (error) return <div>Something went wrong...</div>
@@ -46,16 +47,11 @@ const TV = () => {
             <BreadCrumb movieTitle={tv.name}/>
             <TVInfo tv={tv}/>
 
-            {/*{tv.seasons.map(season => (*/}
-            {/*    <p>{season.overview}</p>*/}
-            {/*))}*/}
-            {/*<MovieInfoBar*/}
-            {/*    time={movie.runtime}*/}
-            {/*    budget={movie.budget}*/}
-            {/*    revenue={movie.revenue}*/}
-            {/*/>*/}
+            <SearchBar placeholderText="Search Actor" setSearchTerm={setSearchTerm}/>
+
             <Grid header='Actors'>
-                {tv.actors.map(actor => (
+                {
+                    actorList.map(actor => (
                     <Actor
                         key={actor.id}
                         actor={actor}

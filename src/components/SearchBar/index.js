@@ -7,7 +7,7 @@ import searchIcon from '../../images/search-icon.svg'
 import {Wrapper, Content} from './SearchBar.styles'
 
 
-const SearchBar = ({setSearchTerm}) => {
+const SearchBar = ({setSearchTerm, placeholderText}) => {
     const [state, setState] = useState('');
     const initial = useRef(true);
 
@@ -26,7 +26,7 @@ const SearchBar = ({setSearchTerm}) => {
         <Wrapper>
                 <Content>
                     <img src={searchIcon} alt='searchIcon'/>
-                    <input type='text' placeholder='Search Movie'
+                    <input type='text' placeholder={placeholderText}
                            onChange={event => setState(event.currentTarget.value)}
                            value={state}
                     />
