@@ -14,6 +14,8 @@ import Store from './Store'
 
 // styles
 import {GlobalStyle} from "./GlobalStyle"
+import Signup from "./components/Signup/Signup";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const App = () => {
     return (
@@ -24,6 +26,7 @@ const App = () => {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/movie/:movieId" element={<Movie/>}/>
                     <Route path="/tv/:tvId" element={<TV/>}/>
+                    <Route path="/Signup" element={<Signup/>}/>
                     <Route path="/*" element={<NotFound/>}/>
                 </Routes>
                 <GlobalStyle/>
