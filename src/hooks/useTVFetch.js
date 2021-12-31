@@ -57,10 +57,6 @@ export const useTVFetch = tvId => {
         sessionStorage.setItem("tv-" + tvId, JSON.stringify(state))
     }, [tvId, state])
 
-    const checkName = (actor) => {
-        return actor.name.toUpperCase().includes(searchTerm.toUpperCase());
-    }
-
     useEffect(() => {
         if (!state || !state.actors) {
             return
@@ -68,7 +64,9 @@ export const useTVFetch = tvId => {
         if (searchTerm === "") {
             setActorList(state.actors)
         } else {
-            setActorList(state.actors.filter(checkName))
+            setActorList(state.actors.filter(
+                actor => actor.name.toUpperCase().includes(searchTerm.toUpperCase())
+            ))
         }
     }, [searchTerm, state])
 
