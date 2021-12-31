@@ -5,6 +5,8 @@ import {Form, Button, Card, Alert, Container} from "react-bootstrap"
 import {Link} from 'react-router-dom'
 import {Content, InnerWrapper, Wrapper, StyledCard} from "./Signup.styles";
 
+// code is copied from https://github.com/WebDevSimplified/React-Firebase-Auth
+
 export default function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
