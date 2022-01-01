@@ -1,9 +1,9 @@
 import React, {useRef, useState} from "react"
 import {Form, Button, Card, Alert} from "react-bootstrap"
-// import { useAuth } from "../contexts/AuthContext"
 // import { Link, useHistory } from "react-router-dom"
 import {Link} from 'react-router-dom'
 import {Content, Wrapper, StyledCard} from "./Signup.styles";
+import {useAuth} from "../../contexts/AuthContext";
 
 // code is copied from https://github.com/WebDevSimplified/React-Firebase-Auth
 
@@ -11,29 +11,27 @@ export default function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    // const { signup } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+    const {signup} = useAuth()
 
     // const history = useHistory()
 
     async function handleSubmit(e) {
         e.preventDefault()
 
-        // if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-        //     return setError("Passwords do not match")
-        // }
-        //
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError('Passwords do not match')
+        }
+
         try {
-            // setError("")
-            // setLoading(true)
-            // await signup(emailRef.current.value, passwordRef.current.value)
+            setError("")
+            setLoading(true)
+            await signup(emailRef.current.value, passwordRef.current.value)
             // history.push("/")
         } catch {
             setError("Failed to create an account")
         }
-
-
         setLoading(false)
     }
 
@@ -48,17 +46,18 @@ export default function Signup() {
 
                             <Form.Group className="mt-2" id="email">
                                 <Form.Label className="col-form-label-lg">Email</Form.Label>
-                                <Form.Control type="email" ref={emailRef} required/>
+                                <Form.Control type="email" ref={emailRef} required onChange={event => setError(false)}/>
                             </Form.Group>
 
                             <Form.Group id="password" className="mt-2">
                                 <Form.Label className="col-form-label-lg">Password</Form.Label>
-                                <Form.Control type="password" ref={passwordRef} required/>
+                                {/*//event.currentTarget.value*/}
+                                <Form.Control type="password" ref={passwordRef} required onChange={event => setError(false)}/>
                             </Form.Group>
 
                             <Form.Group id="password-confirm" className="mt-2">
                                 <Form.Label className="col-form-label-lg">Password Confirmation</Form.Label>
-                                <Form.Control type="password" ref={passwordConfirmRef} required/>
+                                <Form.Control type="password" ref={passwordConfirmRef} required onChange={event => setError(false)}/>
                             </Form.Group>
 
                             <Button disabled={loading} className="btn-lg w-100 mt-4" type="submit">
