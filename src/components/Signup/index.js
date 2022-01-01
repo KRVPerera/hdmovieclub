@@ -1,7 +1,6 @@
 import React, {useRef, useState} from "react"
 import {Form, Button, Card, Alert} from "react-bootstrap"
-// import { Link, useHistory } from "react-router-dom"
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {Content, Wrapper, StyledCard} from "./Signup.styles";
 import {useAuth} from "../../contexts/AuthContext";
 
@@ -14,8 +13,7 @@ export default function Signup() {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const {signup} = useAuth()
-
-    // const history = useHistory()
+    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -33,7 +31,7 @@ export default function Signup() {
                     setError("Failed to create an account. Weak password : " + err.message)
                     break
                 default:
-                    setError("Failed to create an account")
+                    setError("Failed to create an account : " + err.message)
             }
         }
 
@@ -41,7 +39,7 @@ export default function Signup() {
             setError("")
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-            // history.push("/")
+            navigate("/login")
         } catch (err) {
             processError(err);
         }

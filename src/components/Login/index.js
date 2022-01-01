@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react"
 
 import {Content, Wrapper, StyledCard} from "./Login.styles";
 import {Alert, Button, Card, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from "../../contexts/AuthContext";
 
 export default function Login() {
@@ -12,8 +12,7 @@ export default function Login() {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const {login} = useAuth()
-
-    // const history = useHistory()
+    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -33,7 +32,7 @@ export default function Login() {
             setError("")
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
-            // history.push("/")
+            navigate("/")
         } catch (err) {
             processError(err)
         }
