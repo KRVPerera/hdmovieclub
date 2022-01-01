@@ -23,7 +23,6 @@ const App = () => {
     return (
         <AuthProvider>
             <Store>
-
                 <Router>
                     <Header/>
                     <Routes>
@@ -38,7 +37,6 @@ const App = () => {
                     <GlobalStyle/>
                 </Router>
             </Store>
-
         </AuthProvider>
     );
 }

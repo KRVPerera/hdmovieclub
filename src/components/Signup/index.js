@@ -24,13 +24,26 @@ export default function Signup() {
             return setError('Passwords do not match')
         }
 
+        function processError(err) {
+            switch (err.code) {
+                case 'auth/email-already-in-use':
+                    setError("Failed to create an account. The email address is already in use.")
+                    break;
+                case 'auth/weak-password':
+                    setError("Failed to create an account. Weak password : " + err.message)
+                    break
+                default:
+                    setError("Failed to create an account")
+            }
+        }
+
         try {
             setError("")
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
             // history.push("/")
-        } catch {
-            setError("Failed to create an account")
+        } catch (err) {
+            processError(err);
         }
         setLoading(false)
     }
@@ -46,18 +59,21 @@ export default function Signup() {
 
                             <Form.Group className="mt-2" id="email">
                                 <Form.Label className="col-form-label-lg">Email</Form.Label>
-                                <Form.Control type="email" ref={emailRef} required onChange={event => setError(false)}/>
+                                <Form.Control type="email" ref={emailRef} required
+                                              onChange={event => setError(false)}/>
                             </Form.Group>
 
                             <Form.Group id="password" className="mt-2">
                                 <Form.Label className="col-form-label-lg">Password</Form.Label>
                                 {/*//event.currentTarget.value*/}
-                                <Form.Control type="password" ref={passwordRef} required onChange={event => setError(false)}/>
+                                <Form.Control type="password" ref={passwordRef} required
+                                              onChange={event => setError(false)}/>
                             </Form.Group>
 
                             <Form.Group id="password-confirm" className="mt-2">
                                 <Form.Label className="col-form-label-lg">Password Confirmation</Form.Label>
-                                <Form.Control type="password" ref={passwordConfirmRef} required onChange={event => setError(false)}/>
+                                <Form.Control type="password" ref={passwordConfirmRef} required
+                                              onChange={event => setError(false)}/>
                             </Form.Group>
 
                             <Button disabled={loading} className="btn-lg w-100 mt-4" type="submit">

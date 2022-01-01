@@ -18,13 +18,24 @@ export default function Login() {
     async function handleSubmit(e) {
         e.preventDefault()
 
+        function processError(err) {
+            switch (err.code) {
+                case 'auth/wrong-password':
+                    setError("Failed to Log In")
+                case 'auth/user-not-found': // Is this safe ?
+                    setError("User not found.")
+                default:
+                    setError("Failed to Log In")
+            }
+        }
+
         try {
             setError("")
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
             // history.push("/")
-        } catch {
-            setError("Failed to log into account")
+        } catch (err) {
+            processError(err)
         }
         setLoading(false)
     }
