@@ -20,6 +20,14 @@ You will also see any lint errors in the console.
 - [ ] make og:tags work
   - [ ] check netlify edge handlers (still early access), Vercel already have
 - [x] create serverless function to search `HD Movie Club` movies
-- [ ] add search functionality to `HD Movie Club` movies
+- [x] add search functionality to `HD Movie Club` movies
   - [x] fetch on first page
-  - [ ] Fetch over multiple pages
+  - [x] Fetch over multiple pages
+- [ ] TV shows
+  - [ ] Videos of TV shows
+  - [ ] Seasons
+  - [ ] Episodes
+- [ ] private routes
+  - [x] login
+  - [x] Signup
+  - [ ] private routes - https://www.youtube.com/watch?v=PKwu15ldZ7k&t=2449s
