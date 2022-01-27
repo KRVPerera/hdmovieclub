@@ -21,8 +21,10 @@ export default function Login() {
             switch (err.code) {
                 case 'auth/wrong-password':
                     setError("Failed to Log In")
+                    break
                 case 'auth/user-not-found': // Is this safe ?
                     setError("User not found.")
+                    break
                 default:
                     setError("Failed to Log In")
             }

@@ -21,9 +21,10 @@ import {AuthProvider} from "./contexts/AuthContext";
 
 const App = () => {
     return (
-        <AuthProvider>
-            <Store>
-                <Router>
+
+        <Store>
+            <Router>
+                <AuthProvider>
                     <Header/>
                     <Routes>
                         <Route path="/" element={<Home/>}/>
@@ -34,10 +35,11 @@ const App = () => {
                         <Route path="/*" element={<NotFound/>}/>
                     </Routes>
                     <Footer className="text-center"/>
-                    <GlobalStyle/>
-                </Router>
-            </Store>
-        </AuthProvider>
+                </AuthProvider>
+                <GlobalStyle/>
+            </Router>
+        </Store>
+
     );
 }
 

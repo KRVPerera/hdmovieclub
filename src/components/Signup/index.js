@@ -4,9 +4,12 @@ import {Link, useNavigate} from 'react-router-dom'
 import {Content, Wrapper, StyledCard} from "./Signup.styles";
 import {useAuth} from "../../contexts/AuthContext";
 
+// Followed a tutorial "React Authentication Crash Course With Firebase And Routing" by Web Dev Simplified
+// https://www.youtube.com/watch?v=PKwu15ldZ7k&t=2449s
 // code is copied from https://github.com/WebDevSimplified/React-Firebase-Auth
 
 export default function Signup() {
+    const displayNameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
@@ -38,7 +41,7 @@ export default function Signup() {
         try {
             setError("")
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
+            await signup(emailRef.current.value, passwordRef.current.value, displayNameRef.current.value)
             navigate("/login")
         } catch (err) {
             processError(err);
@@ -54,6 +57,12 @@ export default function Signup() {
                         <h2 className="text-center mb-4">Sign Up to HD Movie Club</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
                         <Form onSubmit={handleSubmit}>
+
+                            <Form.Group className="mt-2" id="displayName">
+                                <Form.Label className="col-form-label-lg">Display Name</Form.Label>
+                                <Form.Control type="name" ref={displayNameRef} required
+                                              onChange={event => setError(false)}/>
+                            </Form.Group>
 
                             <Form.Group className="mt-2" id="email">
                                 <Form.Label className="col-form-label-lg">Email</Form.Label>
