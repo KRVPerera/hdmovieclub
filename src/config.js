@@ -28,8 +28,8 @@ const POSTER_SIZE = 'w780';
 const SHARE_SIZE = 'w500';
 const TV_POSTER_SIZE = 'w300';
 
-const GET_TRENDING_MOVIE_URL = `${API_URL}/trending/movie/week?api_key=${API_KEY}&language=en-US`;
-const GET_TRENDING_TV_URL = `${API_URL}/trending/tv/week?api_key=${API_KEY}&language=en-US`;
+const GET_TRENDING_MOVIE_URL = `${API_URL}trending/movie/week?api_key=${API_KEY}&language=en-US`;
+const GET_TRENDING_TV_URL = `${API_URL}trending/tv/week?api_key=${API_KEY}&language=en-US`;
 
 export {
   SEARCH_BASE_URL,
